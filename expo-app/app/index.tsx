@@ -7,7 +7,7 @@ const index = () => {
   return (
     <SafeAreaView className="md:flex flex-col items-center justify-center md:w-full h-full">
       <VStack className="p-2 md:max-w-[440px] w-full" space="xl">
-        <Button
+        {/* <Button
           onPress={() => {
             router.push("auth/splash-screen");
           }}
@@ -50,19 +50,20 @@ const index = () => {
         >
           <ButtonText>News feed</ButtonText>
         </Button>
-        <Button
-          onPress={() => {
-            router.push("dashboard/dashboard-layout");
-          }}
-        >
-          <ButtonText>Dashboard</ButtonText>
-        </Button>
+
         <Button
           onPress={() => {
             router.push("profile/profile");
           }}
         >
           <ButtonText>Profile</ButtonText>
+        </Button> */}
+                <Button
+          onPress={() => {
+            router.push("dashboard/dashboard-layout");
+          }}
+        >
+          <ButtonText>Dashboard</ButtonText>
         </Button>
       </VStack>
     </SafeAreaView>

@@ -1,9 +1,12 @@
 import React, { useRef, useState } from "react";
 import { Box } from "@/components/ui/box";
 import { HStack } from "@/components/ui/hstack";
+import { Grid, GridItem } from "@/components/ui/grid";
+import {Picker} from '@react-native-picker/picker';
+import { StyleSheet} from 'react-native';
 import {
   AlertCircleIcon,
-  ChevronDownIcon,
+  ArrowDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   CloseIcon,
@@ -53,6 +56,7 @@ import { HeartIcon } from "./assets/icons/heart";
 import { Divider } from "@/components/ui/divider";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Badge, BadgeIcon, BadgeText } from "@/components/ui/badge";
 import { z } from "zod";
 import {
   FormControl,
@@ -286,7 +290,7 @@ const DashboardLayout = (props: any) => {
   }
 
   return (
-    <VStack className="h-full w-full bg-background-0">
+    <VStack className="h-full bg-background-0 ">
       <Box className="md:hidden items-center">
         <MobileHeader title={props.title} />
       </Box>
@@ -425,146 +429,320 @@ interface AccountCardType {
   subText: string;
   endIcon: LucideIcon | typeof Icon;
 }
-const accountData: AccountCardType[] = [
-  {
-    iconName: InboxIcon,
-    subText: "Settings",
-    endIcon: ChevronRightIcon,
-  },
-  {
-    iconName: GlobeIcon,
-    subText: "Notifications",
-    endIcon: ChevronRightIcon,
-  },
-  {
-    iconName: PhoneIcon,
-    subText: "Rewards",
-    endIcon: ChevronRightIcon,
-  },
-];
+
 const MainContent = () => {
   const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
+
+  const [selectedLanguage, setSelectedLanguage] = useState();
+  const [leapStatus, setLeapStatus] = useState({
+    currentLeap: "isFirstLeapActive",
+    isFirstLeapActive: true,
+    isSecondLeapActive: false,
+    isThirdLeapActive: false,
+    isFourthLeapActive: false,
+    isFithLeapActive: false,
+    isSixthLeapActive: false,
+    isSeventhLeapActive: false,
+    isEigthLeapActive: false,
+    isNinthLeapActive: false,
+  })
+
+
+  const handleValueChange = (itemValue: string, itemIndex: number) => {
+    setSelectedLanguage(itemValue);
+
+    // get current state as a hash
+    // get find current key and change the value 
+    // find new key and change the value
+    // update currentLeap
+    // Trigger status change
+    var status = leapStatus
+    var prev   = status["currentLeap"]
+    status[prev] = false
+    status[itemValue] = true
+    status["currentLeap"] = itemValue
+    setLeapStatus(status)
+  };
+  
 
   return (
-    <VStack className="h-full w-full mb-16 md:mb-0">
+    
+    <VStack className="h-full px-6">
       <ModalComponent showModal={showModal} setShowModal={setShowModal} />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingBottom: isWeb ? 0 : 160,
-          flexGrow: 1,
-        }}
-      >
-        <VStack className="h-full w-full pb-8" space="2xl">
-          <Box className="relative w-full md:h-[378px] h-[280px]">
-          </Box>
-          <HStack className="absolute pt-6 px-10 hidden md:flex">
-            <Text className="text-typography-900 font-roboto">
-              home &gt; {` `}
-            </Text>
-            <Text className="font-semibold text-typography-900 ">profile</Text>
-          </HStack>
-          <Center className="absolute md:mt-14 mt-6 w-full md:px-10 md:pt-6 pb-4">
-            <VStack space="lg" className="items-center">
-              <Avatar size="2xl" className="bg-primary-600">
-                <AvatarImage
-                  alt="Profile Image"
-                  height={"100%"}
-                  width={"100%"}
-                  source={require("@/assets/dashboard/dashboard-layout/image2.png")}
-                />
-              </Avatar>
-              <VStack className="gap-1 w-full items-center">
-                <Text size="2xl" className="font-roboto text-dark">
-                  Gabriela Rojas
-                </Text>
-                <Text className="font-roboto text-sm text-typograpphy-700">
-                  5 weeks old
-                </Text>
-              </VStack>
-              <>
+        <ScrollView >
+
+
+    <Select className="pb-2" onValueChange={(value, ii) => handleValueChange(value, ii)}>
+      <SelectTrigger size="xl">
+        <SelectInput className="text-center w-full items-center" placeholder="Select option" />
+      </SelectTrigger>
+      <SelectPortal>
+        <SelectBackdrop />
+        <SelectContent>
+          <SelectDragIndicatorWrapper>
+            <SelectDragIndicator />
+          </SelectDragIndicatorWrapper>
+          <SelectItem label="Leap 1" value="isFirstLeapActive" />
+          <SelectItem label="Leap 2" value="isSecondLeapActive" />
+          <SelectItem label="Leap 3" value="isThirdLeapActive" />
+          <SelectItem label="Leap 4" value="isFourthLeapActive" />
+          <SelectItem label="Leap 5" value="isFithLeapActive" />
+        </SelectContent>
+      </SelectPortal>
+    </Select>
+    
+    <Icon className="w-full" as={ArrowDownIcon} size="md" />
+    
+      <VStack>
+        <Grid className="gap-5">
+          <GridItem
+            style={[leapStatus.isFirstLeapActive ? styles.active : styles.hidden]}
+            _extra={{className: "col-span-12 sm:col-span-6 lg:col-span-4"}}>
               
-                {userData.map((item, index) => {
-                  return (
-                    <HStack className="items-center gap-1" key={index}>
-                      <VStack className="py-3 px-4 items-center" space="xs">
-                        <Text className="text-dark font-roboto font-semibold justify-center items-center">
-                          {item.friends}
-                        </Text>
-                        <Text className="text-dark text-xs font-roboto">
-                          {item.friendsText}
-                        </Text>
-                      </VStack>
-                      <Divider orientation="vertical" className="h-10" />
-                      <VStack className="py-3 px-4 items-center" space="xs">
-                        <Text className="text-dark font-roboto font-semibold">
-                          {item.followers}
-                        </Text>
-                        <Text className="text-dark text-xs font-roboto">
-                          {item.followersText}
-                        </Text>
-                      </VStack>
-                      <Divider orientation="vertical" className="h-10" />
-                      <VStack className="py-3 px-4 items-center" space="xs">
-                        <Text className="text-dark font-roboto font-semibold">
-                          {item.rewards}
-                        </Text>
-                        <Text className="text-dark text-xs font-roboto">
-                          {item.rewardsText}
-                        </Text>
-                      </VStack>
-                      <Divider orientation="vertical" className="h-10" />
-                      <VStack className="py-3 px-4 items-center" space="xs">
-                        <Text className="text-dark font-roboto font-semibold">
-                          {item.posts}
-                        </Text>
-                        <Text className="text-dark text-xs font-roboto">
-                          {item.postsText}
-                        </Text>
-                      </VStack>
-                    </HStack>
-                  );
-                })}
-              </>
+            <VStack
+              className="rounded-lg px-4"
+              space="sm">
+
+                <Box className="self-start w-full py-5">
+                  <Heading
+                    size="lg"
+                    className="font-roboto w-full text-center text-typography-700"
+                  >
+                    <Text size="xl">Sensations</Text>
+                  </Heading>
+                </Box>
+                <Image
+                    source={require("@/assets/profile-screens/profile/image2.png")}
+                    height={"30%"}
+                    width={"100%"}
+                    alt="Banner Image"
+                  />
+                <VStack >
+
+                  <Text className="my-2">
+                    Then it suddenly happens... the first leap of sensations. A leap when a baby's metabolism, internal organs
+                    ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
+                    your belly and everything changes again.
+                  </Text>
+                  <VStack>
+
+                  </VStack>
+
+                  <HStack className="my-2">
+                        <Badge className="mr-3" size="md" variant="solid" action="muted">
+                          <BadgeText>Duration: 7 days</BadgeText>
+                          <BadgeIcon as={GlobeIcon} className="ml-2" />
+                        </Badge>
+                        <Badge className="mr-3" size="md" variant="solid" action="muted">
+                          <BadgeText>Started: Jan 15</BadgeText>
+                          <BadgeIcon as={GlobeIcon} className="ml-2" />
+                        </Badge>
+                  </HStack>
+                </VStack>
+
             </VStack>
-          </Center>
-          <VStack className="mx-6" space="2xl">
-            <VStack className="py-2 px-4 border rounded-xl border-border-300 justify-between items-center">
-              {accountData.map((item, index) => {
-                return (
-                  <React.Fragment key={index}>
-                    <HStack
-                      space="2xl"
-                      className="justify-between items-center w-full flex-1 py-3 px-2"
-                    >
-                      <HStack className="items-center" space="md">
-                        <Icon as={item.iconName} className="stroke-[#747474]" />
-                        <Text size="lg">{item.subText}</Text>
-                      </HStack>
-                      <Icon as={item.endIcon} />
-                    </HStack>
-                    {accountData.length - 1 !== index && (
-                      <Divider className="my-1" />
-                    )}
-                  </React.Fragment>
-                );
-              })}
+          </GridItem>
+          <GridItem
+              style={[leapStatus.isSecondLeapActive ? styles.active : styles.hidden]}
+              _extra={{
+                className: "col-span-12 sm:col-span-6 lg:col-span-4",
+              }}
+            >
+
+            <VStack
+              className="rounded-lg px-4 py-6"
+              space="sm">
+
+                <Box className="self-start w-full">
+                  <Heading
+                    size="lg"
+                    className="font-roboto w-full text-center text-typography-700"
+                  >
+                    <Text size="lg items-center w-full text-center">Patterns</Text>
+                  </Heading>
+                </Box>
+                <Image
+                    source={require("@/assets/profile-screens/profile/image2.png")}
+                    height={"30%"}
+                    width={"100%"}
+                    alt="Banner Image"
+                  />
+                <VStack >
+
+                  <Text className="my-2">
+                    Then it suddenly happens... the first leap of sensations. A leap when a baby's metabolism, internal organs
+                    ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
+                    your belly and everything changes again.
+                  </Text>
+                  <VStack>
+
+                  </VStack>
+
+                  <HStack className="my-2">
+                        <Badge className="mr-3" size="md" variant="solid" action="muted">
+                          <BadgeText>Duration: 7 days</BadgeText>
+                          <BadgeIcon as={GlobeIcon} className="ml-2" />
+                        </Badge>
+                        <Badge className="mr-3" size="md" variant="solid" action="muted">
+                          <BadgeText>Started: Jan 15</BadgeText>
+                          <BadgeIcon as={GlobeIcon} className="ml-2" />
+                        </Badge>
+                  </HStack>
+                </VStack>
+
             </VStack>
-          </VStack>
+          </GridItem>
+          <GridItem
+              style={[leapStatus.isThirdLeapActive ? styles.active : styles.hidden]}
+              _extra={{
+                className: "col-span-12 sm:col-span-6 lg:col-span-4",
+              }}
+            >
 
-                        <Button
-                variant="solid"
-                action="primary"
-                onPress={() => setShowModal(true)}
-                className="mx-6"
-              >
-                <ButtonText >Edit Profile</ButtonText>
-              </Button>
+            <VStack
+              className="rounded-lg px-4 py-6"
+              space="sm">
 
+                <Box className="self-start w-full">
+                  <Heading
+                    size="lg"
+                    className="font-roboto w-full text-center text-typography-700"
+                  >
+                    <Text size="lg items-center w-full text-center">Smooth Transitions</Text>
+                  </Heading>
+                </Box>
+                <Image
+                    source={require("@/assets/profile-screens/profile/image2.png")}
+                    height={"30%"}
+                    width={"100%"}
+                    alt="Banner Image"
+                  />
+                <VStack >
 
-              {/* <Button className="my-2" size="md" variant="solid" action="primary">
-                    <ButtonText>Learn More</ButtonText>
-                  </Button> */}
+                  <Text className="my-2">
+                    Then it suddenly happens... the first leap of sensations. A leap when a baby's metabolism, internal organs
+                    ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
+                    your belly and everything changes again.
+                  </Text>
+                  <VStack>
+
+                  </VStack>
+
+                  <HStack className="my-2">
+                        <Badge className="mr-3" size="md" variant="solid" action="muted">
+                          <BadgeText>Duration: 7 days</BadgeText>
+                          <BadgeIcon as={GlobeIcon} className="ml-2" />
+                        </Badge>
+                        <Badge className="mr-3" size="md" variant="solid" action="muted">
+                          <BadgeText>Started: Jan 15</BadgeText>
+                          <BadgeIcon as={GlobeIcon} className="ml-2" />
+                        </Badge>
+                  </HStack>
+                </VStack>
+
+            </VStack>
+          </GridItem>
+          <GridItem
+              style={[leapStatus.isFourthLeapActive ? styles.active : styles.hidden]}
+              _extra={{
+                className: "col-span-12 sm:col-span-6 lg:col-span-4",
+              }}
+            >
+
+<VStack
+              className="rounded-lg px-4 py-6"
+              space="sm">
+
+                <Box className="self-start w-full">
+                  <Heading
+                    size="lg"
+                    className="font-roboto w-full text-center text-typography-700"
+                  >
+                    <Text size="lg items-center w-full text-center">Events</Text>
+                  </Heading>
+                </Box>
+                <Image
+                    source={require("@/assets/profile-screens/profile/image2.png")}
+                    height={"30%"}
+                    width={"100%"}
+                    alt="Banner Image"
+                  />
+                <VStack >
+
+                  <Text className="my-2">
+                    Then it suddenly happens... the first leap of sensations. A leap when a baby's metabolism, internal organs
+                    ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
+                    your belly and everything changes again.
+                  </Text>
+                  <VStack>
+
+                  </VStack>
+
+                  <HStack className="my-2">
+                        <Badge className="mr-3" size="md" variant="solid" action="muted">
+                          <BadgeText>Duration: 7 days</BadgeText>
+                          <BadgeIcon as={GlobeIcon} className="ml-2" />
+                        </Badge>
+                        <Badge className="mr-3" size="md" variant="solid" action="muted">
+                          <BadgeText>Started: Jan 15</BadgeText>
+                          <BadgeIcon as={GlobeIcon} className="ml-2" />
+                        </Badge>
+                  </HStack>
+                </VStack>
+
+            </VStack>
+          </GridItem>
+          <GridItem
+              style={[leapStatus.isFithLeapActive ? styles.active : styles.hidden]}
+              _extra={{
+                className: "col-span-12 sm:col-span-6 lg:col-span-4",
+              }}
+            >
+            <VStack
+              className="rounded-lg px-4 py-6"
+              space="sm">
+
+                <Box className="self-start w-full">
+                  <Heading
+                    size="lg"
+                    className="font-roboto w-full text-center text-typography-700"
+                  >
+                    <Text size="lg items-center w-full text-center">Relationships</Text>
+                  </Heading>
+                </Box>
+                <Image
+                    source={require("@/assets/profile-screens/profile/image2.png")}
+                    height={"30%"}
+                    width={"100%"}
+                    alt="Banner Image"
+                  />
+                <VStack >
+
+                  <Text className="my-2">
+                    Then it suddenly happens... the first leap of sensations. A leap when a baby's metabolism, internal organs
+                    ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
+                    your belly and everything changes again.
+                  </Text>
+                  <VStack>
+
+                  </VStack>
+
+                  <HStack className="my-2">
+                        <Badge className="mr-3" size="md" variant="solid" action="muted">
+                          <BadgeText>Duration: 7 days</BadgeText>
+                          <BadgeIcon as={GlobeIcon} className="ml-2" />
+                        </Badge>
+                        <Badge className="mr-3" size="md" variant="solid" action="muted">
+                          <BadgeText>Started: Jan 15</BadgeText>
+                          <BadgeIcon as={GlobeIcon} className="ml-2" />
+                        </Badge>
+                  </HStack>
+                </VStack>
+
+            </VStack>
+          </GridItem>
+        </Grid>
         </VStack>
       </ScrollView>
     </VStack>
@@ -1468,11 +1646,44 @@ const ModalComponent = ({
     </Modal>
   );
 };
-export const Profile = () => {
+
+const styles = StyleSheet.create({
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  stepContainer: {
+    gap: 8,
+    marginBottom: 8,
+  },
+  reactLogo: {
+    height: 178,
+    width: 290,
+    bottom: 0,
+    left: 0,
+    position: 'absolute',
+  },
+
+  active: {
+    display: 'block',
+    width: 400,
+    height: 500,
+  },
+
+  hidden: {
+    display: 'none',
+    width: 400,
+    height: 500,
+  }
+});
+
+
+export const Leaps = () => {
   return (
     <SafeAreaView className="h-full w-full">
       <DashboardLayout title="Company Name" isSidebarVisible={true}>
-        <MainContent />
+        <MainContent class />
       </DashboardLayout>
       <MobileFooter footerIcons={bottomTabsList} />
     </SafeAreaView>

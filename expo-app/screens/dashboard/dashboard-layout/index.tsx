@@ -14,6 +14,8 @@ import { Heading } from "@/components/ui/heading";
 import { ScrollView } from "@/components/ui/scroll-view";
 import { Divider } from "@/components/ui/divider";
 import { Grid, GridItem } from "@/components/ui/grid";
+import { Progress, ProgressFilledTrack } from "@/components/ui/progress"
+import { Center } from "@/components/ui/center"
 import {
   Avatar,
   AvatarFallbackText,
@@ -27,6 +29,8 @@ import { CalendarIcon } from "./assets/icons/calendar";
 import { SafeAreaView } from "@/components/ui/safe-area-view";
 import { cn } from "@gluestack-ui/nativewind-utils/cn";
 import { Platform } from "react-native";
+import { Badge, BadgeIcon, BadgeText } from "@/components/ui/badge"
+
 type MobileHeaderProps = {
   title: string;
 };
@@ -105,30 +109,10 @@ interface ColleaguesCardData {
 
 const HeadingCards: CardData[] = [
   {
-    bannerUri: require("@/assets/dashboard/dashboard-layout/image.png"),
-    title: "Update your profile",
-    description: "Add your details",
-  },
-  {
     bannerUri: require("@/assets/dashboard/dashboard-layout/image2.png"),
-    title: "Your skills",
-    description: "Add your skills here",
-  },
-  {
-    bannerUri: require("@/assets/dashboard/dashboard-layout/image3.png"),
-    title: "Your goals",
-    description: "Set a target to accomplish",
-  },
-  {
-    bannerUri: require("@/assets/dashboard/dashboard-layout/image3.png"),
-    title: "Your goals",
-    description: "Set a target to accomplish",
-  },
-  {
-    bannerUri: require("@/assets/dashboard/dashboard-layout/image3.png"),
-    title: "Your goals",
-    description: "Set a target to accomplish",
-  },
+    title: "Gabriela Rojas",
+    description: "5 weeks old",
+  }
 ];
 const HolidaysCards: HolidaysCardData[] = [
   {
@@ -244,7 +228,7 @@ const DashboardLayout = (props: any) => {
   }
   return (
     <VStack className="h-full w-full bg-background-0">
-      <Box className="md:hidden">
+      <Box className="md:hidden w-full items-center">
         <MobileHeader title={props.title} />
       </Box>
       <Box className="hidden md:flex">
@@ -323,23 +307,21 @@ function WebHeader(props: HeaderProps) {
 function MobileHeader(props: MobileHeaderProps) {
   const router = useRouter();
   return (
-    <HStack
-      className="py-6 px-4 border-b border-border-50 bg-background-0 items-center"
-      space="md"
-    >
-      <Pressable
-        onPress={() => {
-          router.back();
-        }}
-      >
-        <Icon as={ChevronLeftIcon} />
-      </Pressable>
-      <Text className="text-xl">{props.title}</Text>
-    </HStack>
+    <VStack className="w-full items-center">
+
+          <VStack
+            className="py-6 px-4 w-full bg-background-0"
+            space="md"
+          >
+          <Text className="text-xl w-full text-center">BabyLeaps</Text>
+      </VStack>
+    
+    </VStack>
   );
 }
 
 const MainContent = () => {
+  const router = useRouter();
   return (
     <Box className="flex-1 ">
       <ScrollView
@@ -351,91 +333,125 @@ const MainContent = () => {
         className="flex-1 mb-20 md:mb-2"
       >
         <VStack className="p-4 pb-0 md:px-10 md:pt-6  w-full" space="2xl">
-          <Heading size="2xl" className="font-roboto">
-            Welcome Alexander
-          </Heading>
 
-          <Grid className="gap-5">
-            {HeadingCards.map((item, index) => {
-              return (
+          <Grid  _extra={{
+                    className: "gap-5"
+                  }}>
+
+
                 <GridItem
                   _extra={{
                     className: "col-span-12 sm:col-span-6 lg:col-span-4",
                   }}
-                  key={index}
                 >
-                  <HStack
-                    space="md"
-                    className="border border-border-300 rounded-lg p-4 items-center justify-between"
-                  >
-                    <HStack space="xl" className="items-center">
-                      <Avatar>
-                        <AvatarImage
-                          height={"100%"}
-                          width={"100%"}
-                          //@ts-ignore
-                          source={item.bannerUri}
-                        />
-                      </Avatar>
-                      <VStack>
-                        <Text className="font-semibold text-typography-900 line-clamp-1">
-                          {item.title}
-                        </Text>
-                        <Text className="line-clamp-1">{item.description}</Text>
-                      </VStack>
+
+              <Pressable
+                  onPress={() => {
+                    router.push("profile/profile");
+                  }}
+                >
+                  <VStack className="border border-border-300 rounded-lg p-4" space="md">
+                    <HStack
+                      space="md"
+                      className="items-center justify-between"
+                    >
+                      <HStack space="xl" className="items-center">
+                        <Avatar>
+                          <AvatarImage
+                            height={220}
+                            width={220}
+                            source={require("@/assets/dashboard/dashboard-layout/image2.png")}
+
+                          />
+                        </Avatar>
+                        <VStack>
+                          <Text className="font-semibold text-typography-900 line-clamp-1">
+                            Gabriela Rojas
+                          </Text>
+                          <Text className="line-clamp-1">
+                            5 weeks old
+                          </Text>
+                        </VStack>
+                      </HStack>
                     </HStack>
-                    <Button size="xs">
-                      <ButtonText>Edit</ButtonText>
-                    </Button>
-                  </HStack>
+                    <VStack>
+
+                      <VStack>
+                        <HStack className="items-center justify-between">
+                          <Text className="">
+                            Current Leap: 2 of 20
+                          </Text>
+                          <Text className="">
+                            75% complete
+                          </Text>
+                        </HStack>
+                        <Center className="w-[330px] h-[30px]">
+                          <Progress value={40} size="sm" orientation="horizontal">
+                            <ProgressFilledTrack />
+                          </Progress>
+                        </Center>
+
+                      </VStack>
+                    </VStack>
+                  </VStack>
+                  </Pressable> 
                 </GridItem>
-              );
-            })}
+              
           </Grid>
 
-          <Box className="bg-background-50 p-4 rounded-md">
+          {/* <Box className="bg-background-50 p-4 rounded-md">
             <Text className="text-center font-medium">
               To view analytics you need client ID. Add it to your settings and
               you’re good to go.
             </Text>
-          </Box>
+          </Box> */}
           <Grid className="gap-5">
             <GridItem
               _extra={{
                 className: "col-span-12 sm:col-span-6 lg:col-span-4",
               }}
             >
+
+<Pressable
+              onPress={() => {
+                router.push("/leaps/leaps");
+              }}
+            >
               <VStack
-                className="border border-border-300 rounded-lg px-4 py-6 items-center justify-between"
+                className="border border-border-300 rounded-lg px-4 py-6"
                 space="sm"
               >
-                <Box className="self-start  w-full px-4">
+                <Box className="self-start  w-full">
                   <Heading
                     size="lg"
                     className="font-roboto  text-typography-700"
                   >
-                    Upcoming Holidays
+                    Leap 2: Relationships
                   </Heading>
                 </Box>
                 <Divider />
-                {HolidaysCards.map((item, index) => {
-                  return (
-                    <HStack space="lg" key={index} className="w-full px-4 py-2">
-                      <Avatar className="bg-background-50 h-10 w-10">
-                        <Icon as={item.icon} />
-                      </Avatar>
-                      <VStack>
-                        <Text className="text-typography-900 font-roboto line-clamp-1">
-                          {item.title}
-                        </Text>
-                        <Text className="text-sm font-roboto line-clamp-1">
-                          {item.description}
-                        </Text>
-                      </VStack>
-                    </HStack>
-                  );
-                })}
+                <VStack >
+                  <Text className="my-2">
+                    dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
+                  </Text>
+                  <HStack className="my-2">
+                        <Badge className="mr-3" size="md" variant="solid" action="muted">
+                          <BadgeText>Duration: 7 days</BadgeText>
+                          <BadgeIcon as={GlobeIcon} className="ml-2" />
+                        </Badge>
+                        <Badge className="mr-3" size="md" variant="solid" action="muted">
+                          <BadgeText>Started: Jan 15</BadgeText>
+                          <BadgeIcon as={GlobeIcon} className="ml-2" />
+                        </Badge>
+                  </HStack>
+
+                  <Button className="my-2" size="md" variant="solid" action="primary">
+                    <ButtonText>Learn More</ButtonText>
+                  </Button>
+                </VStack>
+
               </VStack>
+              </Pressable>
             </GridItem>
             <GridItem
               _extra={{
