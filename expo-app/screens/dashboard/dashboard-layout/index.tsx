@@ -1,7 +1,7 @@
 import { Box } from "@/components/ui/box";
 import { HStack } from "@/components/ui/hstack";
 import { isWeb } from "@gluestack-ui/nativewind-utils/IsWeb";
-import { ChevronLeftIcon, Icon, MenuIcon } from "@/components/ui/icon";
+import { UnlockIcon, Icon, MenuIcon, BellIcon } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
 import { Pressable } from "@/components/ui/pressable";
@@ -16,6 +16,7 @@ import { Divider } from "@/components/ui/divider";
 import { Grid, GridItem } from "@/components/ui/grid";
 import { Progress, ProgressFilledTrack } from "@/components/ui/progress"
 import { Center } from "@/components/ui/center"
+import { StyleSheet} from 'react-native';
 import {
   Avatar,
   AvatarFallbackText,
@@ -34,6 +35,38 @@ import { Badge, BadgeIcon, BadgeText } from "@/components/ui/badge"
 type MobileHeaderProps = {
   title: string;
 };
+
+
+const styles = StyleSheet.create({
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  stepContainer: {
+    gap: 8,
+    marginBottom: 8,
+  },
+  reactLogo: {
+    height: 178,
+    width: 290,
+    bottom: 0,
+    left: 0,
+    position: 'absolute',
+  },
+
+  active: {
+    display: 'block',
+    width: 400,
+    height: 500,
+  },
+
+  tips_and_skills_container: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginVertical: 10,
+  }
+});
 
 type HeaderProps = {
   title: string;
@@ -107,83 +140,7 @@ interface ColleaguesCardData {
   position: string;
 }
 
-const HeadingCards: CardData[] = [
-  {
-    bannerUri: require("@/assets/dashboard/dashboard-layout/image2.png"),
-    title: "Gabriela Rojas",
-    description: "5 weeks old",
-  }
-];
-const HolidaysCards: HolidaysCardData[] = [
-  {
-    icon: CalendarIcon,
-    title: "Navaratri",
-    description: "12 March, Monday (Optional holiday)",
-  },
-  {
-    icon: CalendarIcon,
-    title: "Durga Puja",
-    description: "12 October, Tuesday",
-  },
-  {
-    icon: CalendarIcon,
-    title: "Diwali",
-    description: "12 March, Wednesday",
-  },
-  {
-    icon: CalendarIcon,
-    title: "Christmas",
-    description: "12 March, Thursday",
-  },
-];
-const LeavesCards: LeavesCardData[] = [
-  {
-    title: "Earned Leaves",
-    description: "Available 24",
-    leaves: 24,
-    isDisabled: false,
-  },
-  {
-    title: "Sick Leaves",
-    description: "Available 24",
-    leaves: 24,
-    isDisabled: false,
-  },
-  {
-    title: "Menstrual Leaves",
-    description: "Available 20",
-    leaves: 20,
-    isDisabled: false,
-  },
-  {
-    title: "Optional Leaves",
-    description: "Available 0",
-    leaves: 0,
-    isDisabled: true,
-  },
-];
-const ColleaguesCards: ColleaguesCardData[] = [
-  {
-    image: require("@/assets/dashboard/dashboard-layout/image7.png"),
-    title: "Emily Zho",
-    position: "UI/UX Designer",
-  },
-  {
-    image: require("@/assets/dashboard/dashboard-layout/image4.png"),
-    title: "Marilyn Monroe",
-    position: "SDE II",
-  },
-  {
-    image: require("@/assets/dashboard/dashboard-layout/image5.png"),
-    title: "James Kant",
-    position: "SDE III",
-  },
-  {
-    image: require("@/assets/dashboard/dashboard-layout/image6.png"),
-    title: "Richard Faynmen",
-    position: "CEO Marketing",
-  },
-];
+
 
 const Sidebar = () => {
   const router = useRouter();
@@ -351,24 +308,23 @@ const MainContent = () => {
                   }}
                 >
                   <VStack className="border border-border-300 rounded-lg p-4" space="md">
+                    <Box className="self-start items-center w-full">
+                    </Box>
                     <HStack
                       space="md"
-                      className="items-center justify-between"
-                    >
-                      <HStack space="xl" className="items-center">
-                        <Avatar>
+                      className="items-center justify-between">         
+                      <HStack className="items-center">
+                        {/* iamge here */}
+                        <Avatar size="xl">
                           <AvatarImage
-                            height={220}
-                            width={220}
-                            source={require("@/assets/dashboard/dashboard-layout/image2.png")}
-
+                            source={require("@/assets/profile-screens/profile/image.png")}
                           />
                         </Avatar>
-                        <VStack>
-                          <Text className="font-semibold text-typography-900 line-clamp-1">
-                            Gabriela Rojas
+                        <VStack className="ml-5">
+                          <Text className="" size="xl">
+                            Gabriela's Leaps
                           </Text>
-                          <Text className="line-clamp-1">
+                          <Text >
                             5 weeks old
                           </Text>
                         </VStack>
@@ -376,22 +332,22 @@ const MainContent = () => {
                     </HStack>
                     <VStack>
 
-                      <VStack>
-                        <HStack className="items-center justify-between">
-                          <Text className="">
-                            Current Leap: 2 of 20
-                          </Text>
-                          <Text className="">
-                            75% complete
-                          </Text>
-                        </HStack>
-                        <Center className="w-[330px] h-[30px]">
-                          <Progress value={40} size="sm" orientation="horizontal">
-                            <ProgressFilledTrack />
-                          </Progress>
-                        </Center>
+                    <VStack>
+                      <HStack className="items-center justify-between">
+                        <Text className="">
+                          Current Leap: 2 of 20
+                        </Text>
+                        <Text className="">
+                          75% complete
+                        </Text>
+                      </HStack>
+                      <Center className="w-[330px] h-[30px]">
+                        <Progress value={40} size="sm" orientation="horizontal">
+                          <ProgressFilledTrack />
+                        </Progress>
+                      </Center>
 
-                      </VStack>
+                    </VStack>
                     </VStack>
                   </VStack>
                   </Pressable> 
@@ -412,29 +368,61 @@ const MainContent = () => {
               }}
             >
 
-<Pressable
+            <Pressable
               onPress={() => {
                 router.push("/leaps/leaps");
-              }}
-            >
+              }}>            
               <VStack
                 className="border border-border-300 rounded-lg px-4 py-6"
                 space="sm"
               >
-                <Box className="self-start  w-full">
+                <Box className="self-start items-center w-full">
                   <Heading
                     size="lg"
-                    className="font-roboto  text-typography-700"
+                    className="font-roboto text-typography-700"
                   >
                     Leap 2: Relationships
                   </Heading>
                 </Box>
                 <Divider />
+
+                                <HStack style={styles.tips_and_skills_container} className="w-full justify-content-center" >
+                                    <Button variant="outline" action="secondary">
+                                      <Icon as={BellIcon} size="lg" className="mx-1" />
+                                      <ButtonText>Signals</ButtonText>
+                                    </Button>
+                                    <Button className="items-center ml-1"  variant="outline" action="secondary">
+                                    <Icon as={UnlockIcon} size="lg" className="mx-1" />
+                                      <ButtonText>Skills</ButtonText>
+                                    </Button>
+                                  </HStack>
+
                 <VStack >
                   <Text className="my-2">
-                    dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
+                    atque corrupti quos dolores  occaecati cupiditate non dignissimos ducimus qui blanditiis praesentium voluptatum
                   </Text>
-                  <HStack className="my-2">
+                </VStack>
+                
+                {/* <Box className="self-start items-center w-full">
+                <VStack>
+                  <HStack className="items-center justify-between">
+                    <Text className="">
+                      2 days of 20
+                    </Text>
+                    <Text className="">
+                      10% complete
+                    </Text>
+                  </HStack>
+                  <Center className="w-[330px] h-[30px]">
+                    <Progress value={20} size="sm" orientation="horizontal">
+                      <ProgressFilledTrack />
+                    </Progress>
+                  </Center>
+
+                </VStack>
+                </Box> */}
+                <Divider />
+              <HStack className="my-2">
                         <Badge className="mr-3" size="md" variant="solid" action="muted">
                           <BadgeText>Duration: 7 days</BadgeText>
                           <BadgeIcon as={GlobeIcon} className="ml-2" />
@@ -445,159 +433,9 @@ const MainContent = () => {
                         </Badge>
                   </HStack>
 
-                  <Button className="my-2" size="md" variant="solid" action="primary">
-                    <ButtonText>Learn More</ButtonText>
-                  </Button>
-                </VStack>
+              </VStack>
 
-              </VStack>
               </Pressable>
-            </GridItem>
-            <GridItem
-              _extra={{
-                className: "col-span-12 sm:col-span-6 lg:col-span-4",
-              }}
-            >
-              <VStack
-                className="border border-border-300 rounded-lg px-4 py-6 items-center justify-between"
-                space="sm"
-              >
-                <Box className="self-start  w-full px-4">
-                  <Heading
-                    size="lg"
-                    className="font-roboto  text-typography-700"
-                  >
-                    Your Leaves
-                  </Heading>
-                </Box>
-                <Divider />
-                {LeavesCards.map((item, index) => {
-                  return (
-                    <HStack
-                      space="lg"
-                      key={index}
-                      className="w-full px-4 py-2 justify-between items-center"
-                    >
-                      <HStack space="xl" className="items-center">
-                        <Box
-                          className={cn(
-                            "rounded-full h-10 w-10 items-center justify-center",
-                            { "bg-success-0": item.leaves !== 0 },
-                            { "bg-error-50": item.leaves === 0 }
-                          )}
-                        >
-                          <Text
-                            className={cn(
-                              { "text-success-800": item.leaves !== 0 },
-                              { "text-error-700": item.leaves === 0 }
-                            )}
-                          >
-                            {item.leaves}
-                          </Text>
-                        </Box>
-                        <VStack>
-                          <Text className="text-typography-900 font-roboto line-clamp-1">
-                            {item.title}
-                          </Text>
-                          <Text className="text-sm font-roboto line-clamp-1">
-                            {item.description}
-                          </Text>
-                        </VStack>
-                      </HStack>
-                      <Button
-                        isDisabled={item.isDisabled}
-                        variant="outline"
-                        action="secondary"
-                        size="xs"
-                      >
-                        <ButtonText>Apply</ButtonText>
-                      </Button>
-                    </HStack>
-                  );
-                })}
-              </VStack>
-            </GridItem>
-            <GridItem
-              _extra={{
-                className: "col-span-12 sm:col-span-6 lg:col-span-4",
-              }}
-            >
-              <VStack
-                className="border border-border-300  rounded-lg px-4 py-6 items-center justify-between"
-                space="sm"
-              >
-                <Box className="self-start  w-full px-4">
-                  <Heading
-                    size="lg"
-                    className="font-roboto  text-typography-700"
-                  >
-                    New colleagues
-                  </Heading>
-                </Box>
-                <Divider />
-                {ColleaguesCards.map((item, index) => {
-                  return (
-                    <HStack space="lg" key={index} className="w-full px-4 py-2">
-                      <Avatar className="h-10 w-10">
-                        <AvatarImage
-                          height={"100%"}
-                          width={"100%"}
-                          source={item.image}
-                        />
-                      </Avatar>
-                      <VStack>
-                        <Text className="text-typography-900 font-roboto line-clamp-1">
-                          {item.title}
-                        </Text>
-                        <Text className="text-sm font-roboto line-clamp-1">
-                          {item.position}
-                        </Text>
-                      </VStack>
-                    </HStack>
-                  );
-                })}
-              </VStack>
-            </GridItem>
-            <GridItem
-              _extra={{
-                className: "col-span-12 sm:col-span-6 lg:col-span-4",
-              }}
-            >
-              <VStack
-                className="border border-border-300 rounded-lg px-4 py-6 items-center justify-between"
-                space="sm"
-              >
-                <Box className="self-start w-full px-4">
-                  <Heading
-                    size="lg"
-                    className="font-roboto  text-typography-700"
-                  >
-                    New colleagues
-                  </Heading>
-                </Box>
-                <Divider />
-                {ColleaguesCards.map((item, index) => {
-                  return (
-                    <HStack space="lg" key={index} className="px-4 py-2 w-full">
-                      <Avatar className="h-10 w-10">
-                        <AvatarImage
-                          height={"100%"}
-                          width={"100%"}
-                          source={item.image}
-                        />
-                      </Avatar>
-                      <VStack>
-                        <Text className="text-typography-900 font-roboto line-clamp-1">
-                          {item.title}
-                        </Text>
-                        <Text className="text-sm font-roboto line-clamp-1">
-                          {item.position}
-                        </Text>
-                      </VStack>
-                    </HStack>
-                  );
-                })}
-              </VStack>
             </GridItem>
           </Grid>
         </VStack>

@@ -4,6 +4,8 @@ import { HStack } from "@/components/ui/hstack";
 import { Grid, GridItem } from "@/components/ui/grid";
 import {Picker} from '@react-native-picker/picker';
 import { StyleSheet} from 'react-native';
+import { Progress, ProgressFilledTrack } from "@/components/ui/progress"
+import { UnlockIcon, BellIcon} from "@/components/ui/icon";
 import {
   AlertCircleIcon,
   ArrowDownIcon,
@@ -430,6 +432,7 @@ interface AccountCardType {
   endIcon: LucideIcon | typeof Icon;
 }
 
+
 const MainContent = () => {
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
@@ -473,7 +476,7 @@ const MainContent = () => {
         <ScrollView >
 
 
-    <Select className="pb-2" onValueChange={(value, ii) => handleValueChange(value, ii)}>
+    <Select className="pb-2" selectedValue="Leap 1" onValueChange={(value, ii) => handleValueChange(value, ii)}>
       <SelectTrigger size="xl">
         <SelectInput className="text-center w-full items-center" placeholder="Select option" />
       </SelectTrigger>
@@ -492,10 +495,10 @@ const MainContent = () => {
       </SelectPortal>
     </Select>
     
-    <Icon className="w-full" as={ArrowDownIcon} size="md" />
+    <Icon className="w-full my-2" as={ArrowDownIcon} size="md" />
     
-      <VStack>
-        <Grid className="gap-5">
+      <VStack  className="border border-border-300 rounded-lg px-4 h-full" space="lg">
+        <Grid >
           <GridItem
             style={[leapStatus.isFirstLeapActive ? styles.active : styles.hidden]}
             _extra={{className: "col-span-12 sm:col-span-6 lg:col-span-4"}}>
@@ -514,10 +517,38 @@ const MainContent = () => {
                 </Box>
                 <Image
                     source={require("@/assets/profile-screens/profile/image2.png")}
-                    height={"30%"}
+                    height={"20%"}
                     width={"100%"}
                     alt="Banner Image"
                   />
+
+                    <VStack>
+                        <HStack className="items-center justify-between">
+                          <Text className="">
+                            Day 2 of 20
+                          </Text>
+                          <Text className="">
+                            75% complete
+                          </Text>
+                        </HStack>
+                        <Center className="w-[280px] h-[30px]">
+                          <Progress value={40} size="sm" orientation="horizontal">
+                            <ProgressFilledTrack />
+                          </Progress>
+                        </Center>
+
+                      </VStack>
+
+                <HStack style={styles.tips_and_skills_container} className="w-full justify-content-center" >
+                    <Button variant="outline" action="secondary">
+                      <Icon as={BellIcon} size="lg" className="mx-1" />
+                      <ButtonText>Signals</ButtonText>
+                    </Button>
+                    <Button className="items-center ml-1"  variant="outline" action="secondary">
+                    <Icon as={UnlockIcon} size="lg" className="mx-1" />
+                      <ButtonText>Skills</ButtonText>
+                    </Button>
+                  </HStack>
                 <VStack >
 
                   <Text className="my-2">
@@ -1675,6 +1706,11 @@ const styles = StyleSheet.create({
     display: 'none',
     width: 400,
     height: 500,
+  },
+  tips_and_skills_container: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginVertical: 10,
   }
 });
 

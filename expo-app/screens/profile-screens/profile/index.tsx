@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { Grid, GridItem } from "@/components/ui/grid";
 import { Box } from "@/components/ui/box";
 import { HStack } from "@/components/ui/hstack";
 import {
@@ -446,128 +447,88 @@ const MainContent = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <VStack className="h-full w-full mb-16 md:mb-0">
-      <ModalComponent showModal={showModal} setShowModal={setShowModal} />
+    <Box className="flex-1 ">
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          paddingBottom: isWeb ? 0 : 160,
+          paddingBottom: isWeb ? 0 : 100,
           flexGrow: 1,
         }}
+        className="flex-1 mb-20 md:mb-2"
       >
-        <VStack className="h-full w-full pb-8" space="2xl">
-          <Box className="relative w-full md:h-[378px] h-[280px]">
-          </Box>
-          <HStack className="absolute pt-6 px-10 hidden md:flex">
-            <Text className="text-typography-900 font-roboto">
-              home &gt; {` `}
-            </Text>
-            <Text className="font-semibold text-typography-900 ">profile</Text>
-          </HStack>
-          <Center className="absolute md:mt-14 mt-6 w-full md:px-10 md:pt-6 pb-4">
-            <VStack space="lg" className="items-center">
-              <Avatar size="2xl" className="bg-primary-600">
-                <AvatarImage
-                  alt="Profile Image"
-                  height={"100%"}
-                  width={"100%"}
-                  source={require("@/assets/dashboard/dashboard-layout/image2.png")}
-                />
-              </Avatar>
-              <VStack className="gap-1 w-full items-center">
-                <Text size="2xl" className="font-roboto text-dark">
-                  Gabriela Rojas
-                </Text>
-                <Text className="font-roboto text-sm text-typograpphy-700">
-                  5 weeks old
-                </Text>
-              </VStack>
-              <>
-              
-                {userData.map((item, index) => {
-                  return (
-                    <HStack className="items-center gap-1" key={index}>
-                      <VStack className="py-3 px-4 items-center" space="xs">
-                        <Text className="text-dark font-roboto font-semibold justify-center items-center">
-                          {item.friends}
-                        </Text>
-                        <Text className="text-dark text-xs font-roboto">
-                          {item.friendsText}
-                        </Text>
-                      </VStack>
-                      <Divider orientation="vertical" className="h-10" />
-                      <VStack className="py-3 px-4 items-center" space="xs">
-                        <Text className="text-dark font-roboto font-semibold">
-                          {item.followers}
-                        </Text>
-                        <Text className="text-dark text-xs font-roboto">
-                          {item.followersText}
-                        </Text>
-                      </VStack>
-                      <Divider orientation="vertical" className="h-10" />
-                      <VStack className="py-3 px-4 items-center" space="xs">
-                        <Text className="text-dark font-roboto font-semibold">
-                          {item.rewards}
-                        </Text>
-                        <Text className="text-dark text-xs font-roboto">
-                          {item.rewardsText}
-                        </Text>
-                      </VStack>
-                      <Divider orientation="vertical" className="h-10" />
-                      <VStack className="py-3 px-4 items-center" space="xs">
-                        <Text className="text-dark font-roboto font-semibold">
-                          {item.posts}
-                        </Text>
-                        <Text className="text-dark text-xs font-roboto">
-                          {item.postsText}
-                        </Text>
-                      </VStack>
-                    </HStack>
-                  );
-                })}
-              </>
-            </VStack>
-          </Center>
-          <VStack className="mx-6" space="2xl">
-            <VStack className="py-2 px-4 border rounded-xl border-border-300 justify-between items-center">
-              {accountData.map((item, index) => {
-                return (
-                  <React.Fragment key={index}>
+        <VStack className="p-4 pb-0 md:px-10 md:pt-6  w-full " space="2xl">
+
+          <Grid  _extra={{
+                    className: "gap-5"
+                  }}>
+
+
+                <GridItem
+                  _extra={{
+                    className: "col-span-12 sm:col-span-6 lg:col-span-4",
+                  }}
+                >
+
+              <Pressable
+                  onPress={() => {
+                    router.push("profile/profile");
+                  }}
+                >
+                  <VStack className="border border-border-300 rounded-lg p-4" space="md">
+                    <Box className="self-start items-center w-full">
+                      <Heading
+                        size="lg"
+                        className="font-roboto text-typography-700"
+                      >
+                        Gabriela Rojas
+                      </Heading>
+                    </Box>
+                  <Divider />
                     <HStack
-                      space="2xl"
-                      className="justify-between items-center w-full flex-1 py-3 px-2"
-                    >
-                      <HStack className="items-center" space="md">
-                        <Icon as={item.iconName} className="stroke-[#747474]" />
-                        <Text size="lg">{item.subText}</Text>
+                      space="md"
+                      className="items-center justify-between">         
+                      <HStack className="items-center">
+                        <VStack>
+                          <Text className="font-semibold text-typography-900 line-clamp-1">
+                          </Text>
+                          <Text className="line-clamp-1">
+                            5 weeks old
+                          </Text>
+                        </VStack>
                       </HStack>
-                      <Icon as={item.endIcon} />
                     </HStack>
-                    {accountData.length - 1 !== index && (
-                      <Divider className="my-1" />
-                    )}
-                  </React.Fragment>
-                );
-              })}
-            </VStack>
-          </VStack>
+                    <VStack>
 
-                        <Button
-                variant="solid"
-                action="primary"
-                onPress={() => setShowModal(true)}
-                className="mx-6"
-              >
-                <ButtonText >Edit Profile</ButtonText>
-              </Button>
+                      <VStack>
+                        <HStack className="items-center justify-between">
+                          <Text className="">
+                            Current Leap: 2 of 20
+                          </Text>
+                          <Text className="">
+                            75% complete
+                          </Text>
+                        </HStack>
+                        <Center className="w-[330px] h-[30px]">
+                        </Center>
 
+                      </VStack>
+                    </VStack>
+                  </VStack>
+                  </Pressable> 
+                </GridItem>
+              
+          </Grid>
 
-              {/* <Button className="my-2" size="md" variant="solid" action="primary">
-                    <ButtonText>Learn More</ButtonText>
-                  </Button> */}
+          {/* <Box className="bg-background-50 p-4 rounded-md">
+            <Text className="text-center font-medium">
+              To view analytics you need client ID. Add it to your settings and
+              you’re good to go.
+            </Text>
+          </Box> */}
+
         </VStack>
       </ScrollView>
-    </VStack>
+    </Box>
   );
 };
 const MobileScreen = () => {
