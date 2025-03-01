@@ -31,6 +31,7 @@ import { SafeAreaView } from "@/components/ui/safe-area-view";
 import { cn } from "@gluestack-ui/nativewind-utils/cn";
 import { Platform } from "react-native";
 import { Badge, BadgeIcon, BadgeText } from "@/components/ui/badge"
+import { blue } from "react-native-reanimated/lib/typescript/Colors";
 
 type MobileHeaderProps = {
   title: string;
@@ -60,11 +61,18 @@ const styles = StyleSheet.create({
     width: 400,
     height: 500,
   },
+  main_color: {
+    backgroundColor: "#f2f2f2",
+  },
 
   tips_and_skills_container: {
     display: 'flex',
     justifyContent: 'center',
     marginVertical: 10,
+  },
+
+  bubble: {
+    backgroundColor: "white",
   }
 });
 
@@ -118,27 +126,7 @@ const bottomTabsList: BottomTabs[] = [
   },
 ];
 
-interface CardData {
-  bannerUri: string;
-  title: string;
-  description: string;
-}
-interface HolidaysCardData {
-  icon: any;
-  title: string;
-  description: string;
-}
-interface LeavesCardData {
-  title: string;
-  description: string;
-  leaves: number;
-  isDisabled: boolean;
-}
-interface ColleaguesCardData {
-  image: any;
-  title: string;
-  position: string;
-}
+
 
 
 
@@ -270,7 +258,7 @@ function MobileHeader(props: MobileHeaderProps) {
             className="py-6 px-4 w-full bg-background-0"
             space="md"
           >
-          <Text className="text-xl w-full text-center">BabyLeaps</Text>
+          <Text className="text-xl w-full text-center font-medium">BabyLeaps</Text>
       </VStack>
     
     </VStack>
@@ -289,79 +277,52 @@ const MainContent = () => {
         }}
         className="flex-1 mb-20 md:mb-2"
       >
-        <VStack className="p-4 pb-0 md:px-10 md:pt-6  w-full" space="2xl">
-
-          <Grid  _extra={{
-                    className: "gap-5"
-                  }}>
-
-
-                <GridItem
-                  _extra={{
-                    className: "col-span-12 sm:col-span-6 lg:col-span-4",
-                  }}
-                >
-
-              <Pressable
-                  onPress={() => {
-                    router.push("profile/profile");
-                  }}
-                >
-                  <VStack className="border border-border-300 rounded-lg p-4" space="md">
-                    <Box className="self-start items-center w-full">
-                    </Box>
-                    <HStack
-                      space="md"
-                      className="items-center justify-between">         
-                      <HStack className="items-center">
-                        {/* iamge here */}
-                        <Avatar size="xl">
-                          <AvatarImage
-                            source={require("@/assets/profile-screens/profile/image.png")}
-                          />
-                        </Avatar>
-                        <VStack className="ml-5">
-                          <Text className="" size="xl">
-                            Gabriela's Leaps
-                          </Text>
-                          <Text >
-                            5 weeks old
-                          </Text>
-                        </VStack>
-                      </HStack>
+        <VStack style={styles.main_color}className="p-4 pb-0 md:px-10 md:pt-6  w-full" space="2xl">
+          <Grid _extra={{className: "gap-5"}}>
+            <GridItem _extra={{className: "col-span-12 sm:col-span-6 lg:col-span-4"}}>
+              <Pressable onPress={() => {router.push("profile/profile")}}>
+                <VStack className="rounded-lg p-4 " style={{backgroundColor: "white"}} space="md">
+                  <HStack space="md" className="items-center justify-between">         
+                    <HStack className="items-center">
+                      <Avatar size="2xl">
+                        <AvatarImage
+                          source={require("@/assets/profile-screens/profile/avatar.jpg")}
+                        />
+                      </Avatar>
+                      <VStack className="ml-5">
+                        <Text className="font-bold" size="xl">
+                          Gabriela's Leaps
+                        </Text>
+                        <Text >
+                          5 weeks old
+                        </Text>
+                      </VStack>
                     </HStack>
-                    <VStack>
+                  </HStack>
+                  <VStack>
 
-                    <VStack>
-                      <HStack className="items-center justify-between">
-                        <Text className="">
-                          Current Leap: 2 of 20
-                        </Text>
-                        <Text className="">
-                          75% complete
-                        </Text>
-                      </HStack>
-                      <Center className="w-[330px] h-[30px]">
-                        <Progress value={40} size="sm" orientation="horizontal">
-                          <ProgressFilledTrack />
-                        </Progress>
-                      </Center>
+                  <VStack>
+                    <HStack className="items-center justify-between">
+                      <Text className="font-medium">
+                        Current Leap: 2 of 20
+                      </Text>
+                      <Text className="font-medium">
+                        75% complete
+                      </Text>
+                    </HStack>
+                    <Center className="w-[330px] h-[30px]">
+                      <Progress value={40} size="sm" orientation="horizontal">
+                        <ProgressFilledTrack />
+                      </Progress>
+                    </Center>
 
-                    </VStack>
-                    </VStack>
                   </VStack>
-                  </Pressable> 
-                </GridItem>
-              
+                  </VStack>
+                </VStack>
+              </Pressable> 
+            </GridItem>
           </Grid>
-
-          {/* <Box className="bg-background-50 p-4 rounded-md">
-            <Text className="text-center font-medium">
-              To view analytics you need client ID. Add it to your settings and
-              you’re good to go.
-            </Text>
-          </Box> */}
-          <Grid className="gap-5">
+          <Grid _extra={{className: "gap-5"}}>
             <GridItem
               _extra={{
                 className: "col-span-12 sm:col-span-6 lg:col-span-4",
@@ -373,6 +334,7 @@ const MainContent = () => {
                 router.push("/leaps/leaps");
               }}>            
               <VStack
+                style={{backgroundColor: "white"}}
                 className="border border-border-300 rounded-lg px-4 py-6"
                 space="sm"
               >
@@ -386,16 +348,16 @@ const MainContent = () => {
                 </Box>
                 <Divider />
 
-                                <HStack style={styles.tips_and_skills_container} className="w-full justify-content-center" >
-                                    <Button variant="outline" action="secondary">
-                                      <Icon as={BellIcon} size="lg" className="mx-1" />
-                                      <ButtonText>Signals</ButtonText>
-                                    </Button>
-                                    <Button className="items-center ml-1"  variant="outline" action="secondary">
-                                    <Icon as={UnlockIcon} size="lg" className="mx-1" />
-                                      <ButtonText>Skills</ButtonText>
-                                    </Button>
-                                  </HStack>
+                  <HStack style={styles.tips_and_skills_container} className="w-full justify-content-center" >
+                      <Button variant="outline" action="secondary">
+                        <Icon as={BellIcon} size="lg" className="mx-1" />
+                        <ButtonText>Signals</ButtonText>
+                      </Button>
+                      <Button className="items-center ml-1"  variant="outline" action="secondary">
+                      <Icon as={UnlockIcon} size="lg" className="mx-1" />
+                        <ButtonText>Skills</ButtonText>
+                      </Button>
+                    </HStack>
 
                 <VStack >
                   <Text className="my-2">
@@ -423,14 +385,14 @@ const MainContent = () => {
                 </Box> */}
                 <Divider />
               <HStack className="my-2">
-                        <Badge className="mr-3" size="md" variant="solid" action="muted">
-                          <BadgeText>Duration: 7 days</BadgeText>
-                          <BadgeIcon as={GlobeIcon} className="ml-2" />
-                        </Badge>
-                        <Badge className="mr-3" size="md" variant="solid" action="muted">
-                          <BadgeText>Started: Jan 15</BadgeText>
-                          <BadgeIcon as={GlobeIcon} className="ml-2" />
-                        </Badge>
+                <Badge className="mr-3" size="md" variant="solid" action="muted">
+                  <BadgeText>Duration: 7 days</BadgeText>
+                  <BadgeIcon as={GlobeIcon} className="ml-2" />
+                </Badge>
+                <Badge className="mr-3" size="md" variant="solid" action="muted">
+                  <BadgeText>Started: Jan 15</BadgeText>
+                  <BadgeIcon as={GlobeIcon} className="ml-2" />
+                </Badge>
                   </HStack>
 
               </VStack>
