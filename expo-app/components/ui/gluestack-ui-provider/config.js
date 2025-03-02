@@ -2,7 +2,7 @@
 import { vars } from "nativewind";
 export const config = {
   light: vars({
-    "--color-primary-0": "#B3B3B3",
+    "--color-primary-0": "#8ed6ca",
     "--color-primary-50": "#999999",
     "--color-primary-100": "#808080",
     "--color-primary-200": "#737373",
@@ -15,18 +15,18 @@ export const config = {
     "--color-primary-900": "#0A0A0A",
     "--color-primary-950": "#080808",
     /* Secondary  */
-    "--color-secondary-0": "#FEFFFF",
-    "--color-secondary-50": "#F1F2F2",
-    "--color-secondary-100": "#E7E8E8",
-    "--color-secondary-200": "#DBDBDB",
-    "--color-secondary-300": "#AFB0B0",
-    "--color-secondary-400": "#727373",
-    "--color-secondary-500": "#5E5F5F",
-    "--color-secondary-600": "#515252",
-    "--color-secondary-700": "#3F4040",
+    "--color-secondary-0": "#26575a",
+    "--color-secondary-50": "#26575a",
+    "--color-secondary-100": "#26575a",
+    "--color-secondary-200": "#26575a",
+    "--color-secondary-300": "#26575a",
+    "--color-secondary-400": "#26575a",
+    "--color-secondary-500": "#26575a",
+    "--color-secondary-600": "#26575a",
+    "--color-secondary-700": "#26575a",
     "--color-secondary-800": "#272626",
-    "--color-secondary-900": "#181717",
-    "--color-secondary-950": "#0B0C0C",
+    "--color-secondary-900": "#26575a",
+    "--color-secondary-950": "#26575a",
     /* Tertiary */
     "--color-tertiary-0": "#FFFAF5",
     "--color-tertiary-50": "#FFF2E5",
@@ -165,13 +165,13 @@ export const config = {
     "--color-primary-900": "#FDFCFC",
     "--color-primary-950": "#FDFCFC",
     /* Secondary  */
-    "--color-secondary-0": "#0B0C0C",
+    "--color-secondary-0": "#26575a",
     "--color-secondary-50": "#181717",
     "--color-secondary-100": "#272626",
     "--color-secondary-200": "#3F4040",
     "--color-secondary-300": "#515252",
     "--color-secondary-400": "#5E5F5F",
-    "--color-secondary-500": "#727373",
+    "--color-secondary-500": "#26575a",
     "--color-secondary-600": "#AFB0B0",
     "--color-secondary-700": "#DBDBDB",
     "--color-secondary-800": "#E7E8E8",
@@ -302,3 +302,6 @@ export const config = {
     "--color-border-950": "#FDFEFE",
   }),
 };
+
+
+

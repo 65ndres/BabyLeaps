@@ -15,6 +15,7 @@ import { ScrollView } from "@/components/ui/scroll-view";
 import { Divider } from "@/components/ui/divider";
 import { Grid, GridItem } from "@/components/ui/grid";
 import { Progress, ProgressFilledTrack } from "@/components/ui/progress"
+import Image from "@unitools/image";
 import { Center } from "@/components/ui/center"
 import { StyleSheet} from 'react-native';
 import {
@@ -32,6 +33,7 @@ import { cn } from "@gluestack-ui/nativewind-utils/cn";
 import { Platform } from "react-native";
 import { Badge, BadgeIcon, BadgeText } from "@/components/ui/badge"
 import { blue } from "react-native-reanimated/lib/typescript/Colors";
+import { colorScheme } from "nativewind";
 
 type MobileHeaderProps = {
   title: string;
@@ -62,7 +64,8 @@ const styles = StyleSheet.create({
     height: 500,
   },
   main_color: {
-    backgroundColor: "#f2f2f2",
+    backgroundColor: "#f0f5f3",
+    height: "100%",
   },
 
   tips_and_skills_container: {
@@ -125,10 +128,6 @@ const bottomTabsList: BottomTabs[] = [
     iconText: "Profile",
   },
 ];
-
-
-
-
 
 const Sidebar = () => {
   const router = useRouter();
@@ -268,16 +267,15 @@ function MobileHeader(props: MobileHeaderProps) {
 const MainContent = () => {
   const router = useRouter();
   return (
-    <Box className="flex-1 ">
+    <Box className="flex-1 " >
       <ScrollView
+        className="flex-1 mb-20 md:mb-2 main_color"
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingBottom: isWeb ? 0 : 100,
           flexGrow: 1,
-        }}
-        className="flex-1 mb-20 md:mb-2"
-      >
-        <VStack style={styles.main_color}className="p-4 pb-0 md:px-10 md:pt-6  w-full" space="2xl">
+        }}>
+        <VStack style={styles.main_color} className="p-4 pb-0 md:px-10 md:pt-6  w-full" space="2xl">
           <Grid _extra={{className: "gap-5"}}>
             <GridItem _extra={{className: "col-span-12 sm:col-span-6 lg:col-span-4"}}>
               <Pressable onPress={() => {router.push("profile/profile")}}>
@@ -322,7 +320,7 @@ const MainContent = () => {
               </Pressable> 
             </GridItem>
           </Grid>
-          <Grid _extra={{className: "gap-5"}}>
+          <Grid _extra={{className: "gap-5 py-5 my-5"}}>
             <GridItem
               _extra={{
                 className: "col-span-12 sm:col-span-6 lg:col-span-4",
@@ -335,10 +333,10 @@ const MainContent = () => {
               }}>            
               <VStack
                 style={{backgroundColor: "white"}}
-                className="border border-border-300 rounded-lg px-4 py-6"
+                className="rounded-lg px-4 py-6"
                 space="sm"
               >
-                <Box className="self-start items-center w-full">
+                <Box className="self-start">
                   <Heading
                     size="lg"
                     className="font-roboto text-typography-700"
@@ -346,44 +344,27 @@ const MainContent = () => {
                     Leap 2: Relationships
                   </Heading>
                 </Box>
-                <Divider />
-
-                  <HStack style={styles.tips_and_skills_container} className="w-full justify-content-center" >
-                      <Button variant="outline" action="secondary">
-                        <Icon as={BellIcon} size="lg" className="mx-1" />
-                        <ButtonText>Signals</ButtonText>
-                      </Button>
-                      <Button className="items-center ml-1"  variant="outline" action="secondary">
-                      <Icon as={UnlockIcon} size="lg" className="mx-1" />
-                        <ButtonText>Skills</ButtonText>
-                      </Button>
-                    </HStack>
 
                 <VStack >
                   <Text className="my-2">
                     atque corrupti quos dolores  occaecati cupiditate non dignissimos ducimus qui blanditiis praesentium voluptatum
                   </Text>
                 </VStack>
-                
-                {/* <Box className="self-start items-center w-full">
-                <VStack>
-                  <HStack className="items-center justify-between">
-                    <Text className="">
-                      2 days of 20
-                    </Text>
-                    <Text className="">
-                      10% complete
-                    </Text>
-                  </HStack>
-                  <Center className="w-[330px] h-[30px]">
-                    <Progress value={20} size="sm" orientation="horizontal">
-                      <ProgressFilledTrack />
-                    </Progress>
-                  </Center>
 
-                </VStack>
-                </Box> */}
-                <Divider />
+
+
+                {/* Do not remove !!!!!!, yet lol */}
+                {/* <HStack style={styles.tips_and_skills_container} className="w-full justify-content-center" >
+                  <Button variant="outline" action="secondary">
+                    <Icon as={BellIcon} size="lg" className="mx-1" />
+                    <ButtonText>Signals</ButtonText>
+                  </Button>
+                  <Button className="items-center ml-1"  variant="outline" action="secondary">
+                  <Icon as={UnlockIcon} size="lg" className="mx-1" />
+                    <ButtonText>Skills</ButtonText>
+                  </Button>
+                </HStack> */}
+                
               <HStack className="my-2">
                 <Badge className="mr-3" size="md" variant="solid" action="muted">
                   <BadgeText>Duration: 7 days</BadgeText>
@@ -393,18 +374,68 @@ const MainContent = () => {
                   <BadgeText>Started: Jan 15</BadgeText>
                   <BadgeIcon as={GlobeIcon} className="ml-2" />
                 </Badge>
-                  </HStack>
+                </HStack>
+                <Button action="primary" variant="solid">
+                    {/* <Icon as={BellIcon} size="lg" className="mx-1" /> */}
+                    <ButtonText >Signals</ButtonText>
+                  </Button>
 
               </VStack>
+
 
               </Pressable>
             </GridItem>
           </Grid>
+          <Grid _extra={{className: "gap-5"}}>
+            <GridItem style={{paddingRight: 10, paddingBottom: 20}} _extra={{className: "col-span-6 sm:col-span-3 lg:col-span-2 ml-5"}}>
+              <Pressable onPress={() => {router.push("profile/profile")}}>
+                  <VStack className="rounded-lg p-4 w-full" style={{backgroundColor: "white"}} space="md">
+                  <Box className={"w-full h-[115px] justify-center items-center"}>
+                  <Heading
+                    size="lg"
+                    className="font-roboto text-typography-700 mb-2"
+                  >
+                    Calendar
+                  </Heading>
+                    <Image
+                      source={require("@/assets/profile-screens/profile/calendar.png")}
+                      height={"60%"}
+                      width={"60%"}
+                      alt="Banner Image"
+                    />
+                  </Box>
+                  </VStack>
+              </Pressable> 
+            </GridItem>
+            <GridItem style={{paddingLeft: 10}} _extra={{className: "col-span-6 sm:col-span-3 lg:col-span-2 ml-5"}}>
+              <Pressable onPress={() => {router.push("profile/profile")}}>
+                  <VStack className="rounded-lg p-4 w-full" style={{backgroundColor: "white"}} space="md">
+                  <Box className={"w-full h-[115px] justify-center items-center"}>
+                  <Heading
+                    size="lg"
+                    className="font-roboto text-typography-700 mb-2"
+                  >
+                    Settings
+                  </Heading>
+                    <Image
+                      source={require("@/assets/profile-screens/profile/settings.jpg")}
+                      height={"60%"}
+                      width={"60%"}
+                      alt="Banner Image"
+                    />
+                  </Box>
+                  </VStack>
+              </Pressable> 
+            </GridItem>
+          </Grid>
         </VStack>
+
       </ScrollView>
     </Box>
   );
 };
+
+{/* <VStack className="rounded-lg p-4 " style={{backgroundColor: "white"}} space="md"></VStack> */}
 
 export const Dashboard = () => {
   return (

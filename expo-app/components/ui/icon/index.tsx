@@ -479,9 +479,11 @@ const ChevronDownIcon = createIcon({
     <>
       <Path
         d="M6 9L12 15L18 9"
-        strokeWidth="2"
+        strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
+        stroke="#26575a"
+
       />
     </>
   ),

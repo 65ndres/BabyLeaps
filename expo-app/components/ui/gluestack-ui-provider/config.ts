@@ -3,13 +3,13 @@ import { vars } from "nativewind";
 
 export const config = {
   light: vars({
-    "--color-primary-0": "#B3B3B3",
+    "--color-primary-0": "#fffff",
     "--color-primary-50": "#999999",
     "--color-primary-100": "#808080",
     "--color-primary-200": "#737373",
     "--color-primary-300": "#666666",
     "--color-primary-400": "#525252",
-    "--color-primary-500": "#333333",
+    "--color-primary-500": "#34777b",
     "--color-primary-600": "#292929",
     "--color-primary-700": "#1F1F1F",
     "--color-primary-800": "#0D0D0D",
@@ -17,13 +17,13 @@ export const config = {
     "--color-primary-950": "#080808",
 
     /* Secondary  */
-    "--color-secondary-0": "#FEFFFF",
+    "--color-secondary-0": "#26575a",
     "--color-secondary-50": "#F1F2F2",
     "--color-secondary-100": "#E7E8E8",
     "--color-secondary-200": "#DBDBDB",
     "--color-secondary-300": "#AFB0B0",
     "--color-secondary-400": "#727373",
-    "--color-secondary-500": "#5E5F5F",
+    "--color-secondary-500": "#26575a",
     "--color-secondary-600": "#515252",
     "--color-secondary-700": "#3F4040",
     "--color-secondary-800": "#272626",
@@ -145,7 +145,7 @@ export const config = {
     "--color-background-error": "#FEF1F1",
     "--color-background-warning": "#FFF4EB",
     "--color-background-success": "#EDFCF2",
-    "--color-background-muted": "#F6F6F7",
+    "--color-background-muted": "#c9e7e8",
     "--color-background-info": "#EBF8FE",
 
     /* Border */
@@ -177,7 +177,7 @@ export const config = {
     "--color-primary-950": "#FDFCFC",
 
     /* Secondary  */
-    "--color-secondary-0": "#0B0C0C",
+    "--color-secondary-0": "#26575a",
     "--color-secondary-50": "#181717",
     "--color-secondary-100": "#272626",
     "--color-secondary-200": "#3F4040",

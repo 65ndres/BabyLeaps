@@ -9,6 +9,7 @@ import { UnlockIcon, BellIcon} from "@/components/ui/icon";
 import {
   AlertCircleIcon,
   ArrowDownIcon,
+  ChevronDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   CloseIcon,
@@ -83,6 +84,8 @@ import {
 import { CameraSparklesIcon } from "./assets/icons/camera-sparkles";
 import { EditPhotoIcon } from "./assets/icons/edit-photo";
 import { isWeb } from "@gluestack-ui/nativewind-utils/IsWeb";
+
+
 
 type MobileHeaderProps = {
   title: string;
@@ -382,7 +385,7 @@ function MobileHeader(props: MobileHeaderProps) {
         onPress={() => 
           router.push("/dashboard/dashboard-layout")}
          >
-          <Text className="text-xl w-full">BabyLeaps</Text>
+          <Text className="text-xl w-full  font-medium">BabyLeaps</Text>
           </Pressable>
       </HStack>
     
@@ -471,33 +474,12 @@ const MainContent = () => {
 
   return (
     
-    <VStack className="h-full px-6">
+    
+    <VStack style={styles.main_color} className="p-4 pb-0 md:px-10 md:pt-6  w-full" space="2xl">
       <ModalComponent showModal={showModal} setShowModal={setShowModal} />
-        <ScrollView >
-
-
-    <Select className="pb-2" selectedValue="Leap 1" onValueChange={(value, ii) => handleValueChange(value, ii)}>
-      <SelectTrigger size="xl">
-        <SelectInput className="text-center w-full items-center" placeholder="Select option" />
-      </SelectTrigger>
-      <SelectPortal>
-        <SelectBackdrop />
-        <SelectContent>
-          <SelectDragIndicatorWrapper>
-            <SelectDragIndicator />
-          </SelectDragIndicatorWrapper>
-          <SelectItem label="Leap 1" value="isFirstLeapActive" />
-          <SelectItem label="Leap 2" value="isSecondLeapActive" />
-          <SelectItem label="Leap 3" value="isThirdLeapActive" />
-          <SelectItem label="Leap 4" value="isFourthLeapActive" />
-          <SelectItem label="Leap 5" value="isFithLeapActive" />
-        </SelectContent>
-      </SelectPortal>
-    </Select>
+        <ScrollView  >
     
-    <Icon className="w-full my-2" as={ArrowDownIcon} size="md" />
-    
-      <VStack  className="border border-border-300 rounded-lg px-4 h-full" space="lg">
+      <VStack style={{backgroundColor: "white", height: "auto"}} className="mt-5 rounded-lg px-4 h-full" space="lg">
         <Grid >
           <GridItem
             style={[leapStatus.isFirstLeapActive ? styles.active : styles.hidden]}
@@ -508,26 +490,81 @@ const MainContent = () => {
               space="sm">
 
                 <Box className="self-start w-full py-5">
+                  
                   <Heading
                     size="lg"
-                    className="font-roboto w-full text-center text-typography-700"
+                    className="font-roboto w-full text-typography-700"
                   >
-                    <Text size="xl">Sensations</Text>
+                    <HStack className="justify-between w-full">
+                      <HStack>
+                      <Box className="self-start">
+                        <Heading
+                          size="lg"
+                          className="font-roboto pt-3"
+                        >
+                          Current Leap
+                        </Heading>
+
+
+                      </Box>
+                      </HStack>
+                      <HStack className="items-center pb-0">
+                        <Select style={{borderColor: "white"}} className="p-0 col-6 items-center" selectedValue="Leap 1" onValueChange={(value, ii) => handleValueChange(value, ii)}>
+                        <SelectTrigger style={{backgroundColor: "white", borderBlockColor: "white", borderEndColor: "white", borderStartColor:"white"}} size="xl">
+                          <SelectInput  style={{borderColor: "white"}} className="text-center items-center" placeholder="Select option" />
+                          <SelectIcon className="mr-3 text-typography-black"  as={ChevronDownIcon} />
+                        </SelectTrigger>
+                        <SelectPortal style={{borderColor: "white"}}>
+                          <SelectBackdrop />
+                          <SelectContent>
+                            <SelectDragIndicatorWrapper>
+                              <SelectDragIndicator />
+                            </SelectDragIndicatorWrapper>
+                            <SelectItem label="Leap 1" value="isFirstLeapActive" />
+                            <SelectItem label="Leap 2" value="isSecondLeapActive" />
+                            <SelectItem label="Leap 3" value="isThirdLeapActive" />
+                            <SelectItem label="Leap 4" value="isFourthLeapActive" />
+                            <SelectItem label="Leap 5" value="isFithLeapActive" />
+                          </SelectContent>
+                        </SelectPortal>
+                        </Select>
+                      </HStack>
+                    </HStack>
+
                   </Heading>
                 </Box>
-                <Image
-                    source={require("@/assets/profile-screens/profile/image2.png")}
-                    height={"20%"}
-                    width={"100%"}
-                    alt="Banner Image"
-                  />
+                 <Box style={styles.primary_muted} className=" p-4 rounded-md w-full primary_muted">
+                    <HStack>
+                        <HStack style={{width: "15%"}}  className="items-center">
+                          <Image
+                          
+                            source={require("@/assets/profile-screens/profile/contrast.png")}
+                            height={40}
+                            width={40}
+                            alt="Banner Image"
+                            
+                          /> 
+                        </HStack>
 
-                    <VStack>
+                        <VStack style={{width: "85%"}}>
+                        <Text style={{fontSize: "15", fontWeight: 600}} className="col-span-1 ml-5">
+                          Leap 1: Sensations
+                        </Text>
+                        <Text style={{fontSize: "11", lineHeight:"smaller"}} className="col-span-1 ml-5">
+                          Duration: 3 to 7 Days
+                        </Text>
+                        </VStack>
+                        
+
+                    </HStack>
+                  </Box>
+
+                    <VStack className="pt-4">
                         <HStack className="items-center justify-between">
-                          <Text className="">
+                          <Text className="font-medium">
                             Day 2 of 20
                           </Text>
-                          <Text className="">
+                          <Text className="font-medium">
                             75% complete
                           </Text>
                         </HStack>
@@ -538,21 +575,23 @@ const MainContent = () => {
                         </Center>
 
                       </VStack>
+                <VStack >
 
                 <HStack style={styles.tips_and_skills_container} className="w-full justify-content-center" >
-                    <Button variant="outline" action="secondary">
-                      <Icon as={BellIcon} size="lg" className="mx-1" />
-                      <ButtonText>Signals</ButtonText>
-                    </Button>
-                    <Button className="items-center ml-1"  variant="outline" action="secondary">
-                    <Icon as={UnlockIcon} size="lg" className="mx-1" />
-                      <ButtonText>Skills</ButtonText>
-                    </Button>
-                  </HStack>
-                <VStack >
+                <Button variant="solid" action="primary" style={{width: "50%"}}>
+                  <Icon as={BellIcon} size="lg" className="mx-1" />
+                  <ButtonText>Signals</ButtonText>
+                </Button>
+                <Button className="items-center ml-1"  variant="solid" action="primary" style={{width: "50%"}}>
+                <Icon as={UnlockIcon} size="lg" className="mx-1" />
+                  <ButtonText>Skills</ButtonText>
+                </Button>
+              </HStack>
 
                   <Text className="my-2">
                     Then it suddenly happens... the first leap of sensations. A leap when a baby's metabolism, internal organs
+                    ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
+                    your belly and everything changes again.
                     ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
                     your belly and everything changes again.
                   </Text>
@@ -560,7 +599,7 @@ const MainContent = () => {
 
                   </VStack>
 
-                  <HStack className="my-2">
+                  {/* <HStack className="my-2">
                         <Badge className="mr-3" size="md" variant="solid" action="muted">
                           <BadgeText>Duration: 7 days</BadgeText>
                           <BadgeIcon as={GlobeIcon} className="ml-2" />
@@ -569,8 +608,9 @@ const MainContent = () => {
                           <BadgeText>Started: Jan 15</BadgeText>
                           <BadgeIcon as={GlobeIcon} className="ml-2" />
                         </Badge>
-                  </HStack>
-                </VStack>
+                  </HStack> */}
+
+</VStack>
 
             </VStack>
           </GridItem>
@@ -1702,6 +1742,11 @@ const styles = StyleSheet.create({
     height: 500,
   },
 
+  main_color: {
+    backgroundColor: "#f0f5f3",
+    height: "100%",
+  },
+
   hidden: {
     display: 'none',
     width: 400,
@@ -1711,15 +1756,23 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     marginVertical: 10,
+  },
+  primary_muted: {
+    backgroundColor: "#c9e7e8",
+  },
+  selector: {
   }
 });
+
+
+
 
 
 export const Leaps = () => {
   return (
     <SafeAreaView className="h-full w-full">
       <DashboardLayout title="Company Name" isSidebarVisible={true}>
-        <MainContent class />
+        <MainContent />
       </DashboardLayout>
       <MobileFooter footerIcons={bottomTabsList} />
     </SafeAreaView>
