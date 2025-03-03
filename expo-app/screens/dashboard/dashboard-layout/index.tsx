@@ -282,7 +282,7 @@ const MainContent = () => {
                 <VStack className="rounded-lg p-4 " style={{backgroundColor: "white"}} space="md">
                   <HStack space="md" className="items-center justify-between">         
                     <HStack className="items-center">
-                      <Avatar size="2xl">
+                      <Avatar size="xl">
                         <AvatarImage
                           source={require("@/assets/profile-screens/profile/avatar.jpg")}
                         />
@@ -390,7 +390,7 @@ const MainContent = () => {
             <GridItem style={{paddingRight: 10, paddingBottom: 20}} _extra={{className: "col-span-6 sm:col-span-3 lg:col-span-2 ml-5"}}>
               <Pressable onPress={() => {router.push("profile/profile")}}>
                   <VStack className="rounded-lg p-4 w-full" style={{backgroundColor: "white"}} space="md">
-                  <Box className={"w-full h-[115px] justify-center items-center"}>
+                  <Box className={"w-full h-[140px] justify-center items-center"}>
                   <Heading
                     size="lg"
                     className="font-roboto text-typography-700 mb-2"
@@ -399,8 +399,8 @@ const MainContent = () => {
                   </Heading>
                     <Image
                       source={require("@/assets/profile-screens/profile/calendar.png")}
-                      height={"60%"}
-                      width={"60%"}
+                      height={"40%"}
+                      width={"40%"}
                       alt="Banner Image"
                     />
                   </Box>
@@ -410,7 +410,7 @@ const MainContent = () => {
             <GridItem style={{paddingLeft: 10}} _extra={{className: "col-span-6 sm:col-span-3 lg:col-span-2 ml-5"}}>
               <Pressable onPress={() => {router.push("profile/profile")}}>
                   <VStack className="rounded-lg p-4 w-full" style={{backgroundColor: "white"}} space="md">
-                  <Box className={"w-full h-[115px] justify-center items-center"}>
+                  <Box className={"w-full h-[140px] justify-center items-center"}>
                   <Heading
                     size="lg"
                     className="font-roboto text-typography-700 mb-2"
@@ -419,8 +419,8 @@ const MainContent = () => {
                   </Heading>
                     <Image
                       source={require("@/assets/profile-screens/profile/settings.jpg")}
-                      height={"60%"}
-                      width={"60%"}
+                      height={"45%"}
+                      width={"45%"}
                       alt="Banner Image"
                     />
                   </Box>

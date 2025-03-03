@@ -1,22 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Box } from "@/components/ui/box";
 import { HStack } from "@/components/ui/hstack";
 import { Grid, GridItem } from "@/components/ui/grid";
-import {Picker} from '@react-native-picker/picker';
 import { StyleSheet} from 'react-native';
 import { Progress, ProgressFilledTrack } from "@/components/ui/progress"
 import { UnlockIcon, BellIcon} from "@/components/ui/icon";
 import {
-  AlertCircleIcon,
-  ArrowDownIcon,
   ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  CloseIcon,
-  EditIcon,
   Icon,
   MenuIcon,
-  PhoneIcon,
   SettingsIcon,
 } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
@@ -47,7 +39,7 @@ import { ProfileIcon } from "./assets/icons/profile";
 import { SafeAreaView } from "@/components/ui/safe-area-view";
 import { Center } from "@/components/ui/center";
 import { cn } from "@gluestack-ui/nativewind-utils/cn";
-import { Keyboard, Platform } from "react-native";
+import {Platform } from "react-native";
 import { SubscriptionIcon } from "./assets/icons/subscription";
 import { DownloadIcon } from "./assets/icons/download";
 import { FaqIcon } from "./assets/icons/faq";
@@ -56,19 +48,8 @@ import { HomeIcon } from "./assets/icons/home";
 import { GlobeIcon } from "./assets/icons/globe";
 import { InboxIcon } from "./assets/icons/inbox";
 import { HeartIcon } from "./assets/icons/heart";
-import { Divider } from "@/components/ui/divider";
-import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Badge, BadgeIcon, BadgeText } from "@/components/ui/badge";
 import { z } from "zod";
-import {
-  FormControl,
-  FormControlError,
-  FormControlErrorIcon,
-  FormControlErrorText,
-  FormControlLabel,
-  FormControlLabelText,
-} from "@/components/ui/form-control";
 import {
   Select,
   SelectBackdrop,
@@ -81,10 +62,6 @@ import {
   SelectPortal,
   SelectTrigger,
 } from "@/components/ui/select";
-import { CameraSparklesIcon } from "./assets/icons/camera-sparkles";
-import { EditPhotoIcon } from "./assets/icons/edit-photo";
-import { isWeb } from "@gluestack-ui/nativewind-utils/IsWeb";
-
 
 
 type MobileHeaderProps = {
@@ -155,28 +132,8 @@ const bottomTabsList: BottomTabs[] = [
     iconText: "Profile",
   },
 ];
-interface UserStats {
-  friends: string;
-  friendsText: string;
-  followers: string;
-  followersText: string;
-  rewards: string;
-  rewardsText: string;
-  posts: string;
-  postsText: string;
-}
-const userData: UserStats[] = [
-  {
-    friends: "45K",
-    friendsText: "Friends",
-    followers: "500M",
-    followersText: "Followers",
-    rewards: "40",
-    rewardsText: "Rewards",
-    posts: "346",
-    postsText: "Posts",
-  },
-];
+
+
 
 const Sidebar = () => {
   const router = useRouter();
@@ -392,49 +349,6 @@ function MobileHeader(props: MobileHeaderProps) {
     </HStack>
   );
 }
-type userSchemaDetails = z.infer<typeof userSchema>;
-
-// Define the Zod schema
-const userSchema = z.object({
-  firstName: z
-    .string()
-    .min(1, "First name is required")
-    .max(50, "First name must be less than 50 characters"),
-  lastName: z
-    .string()
-    .min(1, "Last name is required")
-    .max(50, "Last name must be less than 50 characters"),
-  gender: z.enum(["male", "female", "other"]),
-  phoneNumber: z
-    .string()
-    .regex(
-      /^\+?[1-9]\d{1,14}$/,
-      "Phone number must be a valid international phone number"
-    ),
-  city: z
-    .string()
-    .min(1, "City is required")
-    .max(100, "City must be less than 100 characters"),
-  state: z
-    .string()
-    .min(1, "State is required")
-    .max(100, "State must be less than 100 characters"),
-  country: z
-    .string()
-    .min(1, "Country is required")
-    .max(100, "Country must be less than 100 characters"),
-  zipcode: z
-    .string()
-    .min(1, "Zipcode is required")
-    .max(20, "Zipcode must be less than 20 characters"),
-});
-
-interface AccountCardType {
-  iconName: LucideIcon | typeof Icon;
-  subText: string;
-  endIcon: LucideIcon | typeof Icon;
-}
-
 
 const MainContent = () => {
   const [showModal, setShowModal] = useState(false);
@@ -473,40 +387,22 @@ const MainContent = () => {
   
 
   return (
-    
-    
     <VStack style={styles.main_color} className="p-4 pb-0 md:px-10 md:pt-6  w-full" space="2xl">
-      <ModalComponent showModal={showModal} setShowModal={setShowModal} />
-        <ScrollView  >
-    
-      <VStack style={{backgroundColor: "white", height: "auto"}} className="mt-5 rounded-lg px-4 h-full" space="lg">
-        <Grid >
-          <GridItem
-            style={[leapStatus.isFirstLeapActive ? styles.active : styles.hidden]}
-            _extra={{className: "col-span-12 sm:col-span-6 lg:col-span-4"}}>
-              
-            <VStack
-              className="rounded-lg px-4"
-              space="sm">
-
+      <ScrollView>
+        <VStack style={{backgroundColor: "white", height: "auto"}} className="mt-5 rounded-lg px-4 h-full" space="lg">
+          <Grid _extra={{className: "col-span-12"}}>
+            <GridItem
+              _extra={{className: "col-span-12 sm:col-span-6 lg:col-span-4"}}>
+              <VStack className="rounded-lg px-4" space="sm">
                 <Box className="self-start w-full py-5">
-                  
-                  <Heading
-                    size="lg"
-                    className="font-roboto w-full text-typography-700"
-                  >
+                  <Heading size="lg" className="font-roboto w-full text-typography-700">
                     <HStack className="justify-between w-full">
                       <HStack>
-                      <Box className="self-start">
-                        <Heading
-                          size="lg"
-                          className="font-roboto pt-3"
-                        >
-                          Current Leap
-                        </Heading>
-
-
-                      </Box>
+                        <Box className="self-start">
+                          <Heading size="lg" className="font-roboto pt-3">
+                            Current Leap
+                          </Heading>
+                        </Box>
                       </HStack>
                       <HStack className="items-center pb-0">
                         <Select style={{borderColor: "white"}} className="p-0 col-6 items-center" selectedValue="Leap 1" onValueChange={(value, ii) => handleValueChange(value, ii)}>
@@ -530,1191 +426,304 @@ const MainContent = () => {
                         </Select>
                       </HStack>
                     </HStack>
-
                   </Heading>
                 </Box>
-                 <Box style={styles.primary_muted} className=" p-4 rounded-md w-full primary_muted">
+                <VStack style={[leapStatus.isFirstLeapActive ? styles.active : styles.hidden]}>
+                  <Box style={styles.primary_muted} className=" p-4 rounded-md w-full primary_muted">
                     <HStack>
-                        <HStack style={{width: "15%"}}  className="items-center">
-                          <Image
-                          
-                            source={require("@/assets/profile-screens/profile/contrast.png")}
-                            height={40}
-                            width={40}
-                            alt="Banner Image"
-                            
-                          /> 
-                        </HStack>
-
-                        <VStack style={{width: "85%"}}>
+                      <HStack style={{width: "15%"}}  className="items-center">
+                        <Image
+                          source={require("@/assets/profile-screens/profile/contrast.png")}
+                          height={40}
+                          width={40}
+                          alt="Banner Image"/> 
+                      </HStack>
+                      <VStack style={{width: "85%"}}>
                         <Text style={{fontSize: "15", fontWeight: 600}} className="col-span-1 ml-5">
                           Leap 1: Sensations
                         </Text>
                         <Text style={{fontSize: "11", lineHeight:"smaller"}} className="col-span-1 ml-5">
                           Duration: 3 to 7 Days
                         </Text>
-                        </VStack>
-                        
-
+                      </VStack>
                     </HStack>
                   </Box>
+                  <VStack className="my-5">
+                    <HStack className="items-center justify-between">
+                      <Text className="font-medium">
+                        Day 2 of 20
+                      </Text>
+                      <Text className="font-medium">
+                        75% complete
+                      </Text>
+                    </HStack>
+                    <Center className="w-[280px] h-[30px]">
+                      <Progress value={40} size="sm" orientation="horizontal">
+                        <ProgressFilledTrack />
+                      </Progress>
+                    </Center>
+                  </VStack>
+                  <VStack >
+                    <HStack style={styles.tips_and_skills_container} className="w-full justify-content-center" >
+                      <Button variant="solid" action="primary" style={{width: "50%"}}>
+                        <Icon as={BellIcon} size="lg" className="mx-1" />
+                        <ButtonText>Signals</ButtonText>
+                      </Button>
+                      <Button className="items-center ml-1"  variant="solid" action="primary" style={{width: "50%"}}>
+                      <Icon as={UnlockIcon} size="lg" className="mx-1" />
+                        <ButtonText>Skills</ButtonText>
+                      </Button>
+                    </HStack>
 
-                    <VStack className="pt-4">
-                        <HStack className="items-center justify-between">
-                          <Text className="font-medium">
-                            Day 2 of 20
-                          </Text>
-                          <Text className="font-medium">
-                            75% complete
-                          </Text>
-                        </HStack>
-                        <Center className="w-[280px] h-[30px]">
-                          <Progress value={40} size="sm" orientation="horizontal">
-                            <ProgressFilledTrack />
-                          </Progress>
-                        </Center>
-
+                    <Text className="mb-10 mt-5" style={{backgroundColor:"white"}}>
+                      Then it suddenly happens... the first leap of sensations. A leap when a baby's metabolism, internal organs
+                      ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
+                      your belly and everything changes again.
+                      ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
+                      your belly and everything changes again.
+                    </Text>
+                    <VStack>
+                    </VStack>
+                  </VStack>
+                </VStack>
+                <VStack style={[leapStatus.isSecondLeapActive ? styles.active : styles.hidden]}>
+                  <Box style={styles.primary_muted} className=" p-4 rounded-md w-full primary_muted">
+                    <HStack>
+                      <HStack style={{width: "15%"}}  className="items-center">
+                        <Image
+                          source={require("@/assets/profile-screens/profile/pattern-lock.png")}
+                          height={40}
+                          width={40}
+                          alt="Banner Image"/> 
+                      </HStack>
+                      <VStack style={{width: "85%"}}>
+                        <Text style={{fontSize: "15", fontWeight: 600}} className="col-span-1 ml-5">
+                          Leap 2: Patterns
+                        </Text>
+                        <Text style={{fontSize: "11", lineHeight:"smaller"}} className="col-span-1 ml-5">
+                          Duration: 0 to 7 Days
+                        </Text>
                       </VStack>
-                <VStack >
-
-                <HStack style={styles.tips_and_skills_container} className="w-full justify-content-center" >
-                <Button variant="solid" action="primary" style={{width: "50%"}}>
-                  <Icon as={BellIcon} size="lg" className="mx-1" />
-                  <ButtonText>Signals</ButtonText>
-                </Button>
-                <Button className="items-center ml-1"  variant="solid" action="primary" style={{width: "50%"}}>
-                <Icon as={UnlockIcon} size="lg" className="mx-1" />
-                  <ButtonText>Skills</ButtonText>
-                </Button>
-              </HStack>
-
-                  <Text className="my-2">
-                    Then it suddenly happens... the first leap of sensations. A leap when a baby's metabolism, internal organs
-                    ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
-                    your belly and everything changes again.
-                    ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
-                    your belly and everything changes again.
-                  </Text>
-                  <VStack>
-
+                    </HStack>
+                  </Box>
+                  <VStack className="pt-4">
+                    <HStack className="items-center justify-between">
+                      <Text className="font-medium">
+                        Day 0 of 20
+                      </Text>
+                      <Text className="font-medium">
+                        0% complete
+                      </Text>
+                    </HStack>
+                    <Center className="w-[280px] h-[30px]">
+                      <Progress value={0} size="sm" orientation="horizontal">
+                        <ProgressFilledTrack />
+                      </Progress>
+                    </Center>
                   </VStack>
+                  <VStack >
+                    <HStack style={styles.tips_and_skills_container} className="w-full justify-content-center" >
+                      <Button variant="solid" action="primary" style={{width: "50%"}}>
+                        <Icon as={BellIcon} size="lg" className="mx-1" />
+                        <ButtonText>Signals</ButtonText>
+                      </Button>
+                      <Button className="items-center ml-1"  variant="solid" action="primary" style={{width: "50%"}}>
+                      <Icon as={UnlockIcon} size="lg" className="mx-1" />
+                        <ButtonText>Skills</ButtonText>
+                      </Button>
+                    </HStack>
 
-                  {/* <HStack className="my-2">
-                        <Badge className="mr-3" size="md" variant="solid" action="muted">
-                          <BadgeText>Duration: 7 days</BadgeText>
-                          <BadgeIcon as={GlobeIcon} className="ml-2" />
-                        </Badge>
-                        <Badge className="mr-3" size="md" variant="solid" action="muted">
-                          <BadgeText>Started: Jan 15</BadgeText>
-                          <BadgeIcon as={GlobeIcon} className="ml-2" />
-                        </Badge>
-                  </HStack> */}
-
-</VStack>
-
-            </VStack>
-          </GridItem>
-          <GridItem
-              style={[leapStatus.isSecondLeapActive ? styles.active : styles.hidden]}
-              _extra={{
-                className: "col-span-12 sm:col-span-6 lg:col-span-4",
-              }}
-            >
-
-            <VStack
-              className="rounded-lg px-4 py-6"
-              space="sm">
-
-                <Box className="self-start w-full">
-                  <Heading
-                    size="lg"
-                    className="font-roboto w-full text-center text-typography-700"
-                  >
-                    <Text size="lg items-center w-full text-center">Patterns</Text>
-                  </Heading>
-                </Box>
-                <Image
-                    source={require("@/assets/profile-screens/profile/image2.png")}
-                    height={"30%"}
-                    width={"100%"}
-                    alt="Banner Image"
-                  />
-                <VStack >
-
-                  <Text className="my-2">
-                    Then it suddenly happens... the first leap of sensations. A leap when a baby's metabolism, internal organs
-                    ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
-                    your belly and everything changes again.
-                  </Text>
-                  <VStack>
-
+                    <Text className="mb-10 mt-5" style={{backgroundColor:"white"}}>
+                      Then it suddenly happens... the first leap of sensations. A leap when a baby's metabolism, internal organs
+                      ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
+                      your belly and everything changes again.
+                      ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
+                      your belly and everything changes again.
+                    </Text>
+                    <VStack>
+                    </VStack>
                   </VStack>
-
-                  <HStack className="my-2">
-                        <Badge className="mr-3" size="md" variant="solid" action="muted">
-                          <BadgeText>Duration: 7 days</BadgeText>
-                          <BadgeIcon as={GlobeIcon} className="ml-2" />
-                        </Badge>
-                        <Badge className="mr-3" size="md" variant="solid" action="muted">
-                          <BadgeText>Started: Jan 15</BadgeText>
-                          <BadgeIcon as={GlobeIcon} className="ml-2" />
-                        </Badge>
-                  </HStack>
                 </VStack>
-
-            </VStack>
-          </GridItem>
-          <GridItem
-              style={[leapStatus.isThirdLeapActive ? styles.active : styles.hidden]}
-              _extra={{
-                className: "col-span-12 sm:col-span-6 lg:col-span-4",
-              }}
-            >
-
-            <VStack
-              className="rounded-lg px-4 py-6"
-              space="sm">
-
-                <Box className="self-start w-full">
-                  <Heading
-                    size="lg"
-                    className="font-roboto w-full text-center text-typography-700"
-                  >
-                    <Text size="lg items-center w-full text-center">Smooth Transitions</Text>
-                  </Heading>
-                </Box>
-                <Image
-                    source={require("@/assets/profile-screens/profile/image2.png")}
-                    height={"30%"}
-                    width={"100%"}
-                    alt="Banner Image"
-                  />
-                <VStack >
-
-                  <Text className="my-2">
-                    Then it suddenly happens... the first leap of sensations. A leap when a baby's metabolism, internal organs
-                    ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
-                    your belly and everything changes again.
-                  </Text>
-                  <VStack>
-
+                <VStack style={[leapStatus.isThirdLeapActive ? styles.active : styles.hidden]}>
+                  <Box style={styles.primary_muted} className=" p-4 rounded-md w-full primary_muted">
+                    <HStack>
+                      <HStack style={{width: "15%"}}  className="items-center">
+                        <Image
+                          source={require("@/assets/profile-screens/profile/transition.png")}
+                          height={40}
+                          width={40}
+                          alt="Banner Image"/> 
+                      </HStack>
+                      <VStack style={{width: "85%"}}>
+                        <Text style={{fontSize: "15", fontWeight: 600}} className="col-span-1 ml-5">
+                          Leap 3: Smooth Transitions
+                        </Text>
+                        <Text style={{fontSize: "11", lineHeight:"smaller"}} className="col-span-1 ml-5">
+                          Duration: 0 to 7 Days
+                        </Text>
+                      </VStack>
+                    </HStack>
+                  </Box>
+                  <VStack className="pt-4">
+                    <HStack className="items-center justify-between">
+                      <Text className="font-medium">
+                        Day 0 of 20
+                      </Text>
+                      <Text className="font-medium">
+                        0% complete
+                      </Text>
+                    </HStack>
+                    <Center className="w-[280px] h-[30px]">
+                      <Progress value={0} size="sm" orientation="horizontal">
+                        <ProgressFilledTrack />
+                      </Progress>
+                    </Center>
                   </VStack>
+                  <VStack >
+                    <HStack style={styles.tips_and_skills_container} className="w-full justify-content-center" >
+                      <Button variant="solid" action="primary" style={{width: "50%"}}>
+                        <Icon as={BellIcon} size="lg" className="mx-1" />
+                        <ButtonText>Signals</ButtonText>
+                      </Button>
+                      <Button className="items-center ml-1"  variant="solid" action="primary" style={{width: "50%"}}>
+                      <Icon as={UnlockIcon} size="lg" className="mx-1" />
+                        <ButtonText>Skills</ButtonText>
+                      </Button>
+                    </HStack>
 
-                  <HStack className="my-2">
-                        <Badge className="mr-3" size="md" variant="solid" action="muted">
-                          <BadgeText>Duration: 7 days</BadgeText>
-                          <BadgeIcon as={GlobeIcon} className="ml-2" />
-                        </Badge>
-                        <Badge className="mr-3" size="md" variant="solid" action="muted">
-                          <BadgeText>Started: Jan 15</BadgeText>
-                          <BadgeIcon as={GlobeIcon} className="ml-2" />
-                        </Badge>
-                  </HStack>
-                </VStack>
-
-            </VStack>
-          </GridItem>
-          <GridItem
-              style={[leapStatus.isFourthLeapActive ? styles.active : styles.hidden]}
-              _extra={{
-                className: "col-span-12 sm:col-span-6 lg:col-span-4",
-              }}
-            >
-
-<VStack
-              className="rounded-lg px-4 py-6"
-              space="sm">
-
-                <Box className="self-start w-full">
-                  <Heading
-                    size="lg"
-                    className="font-roboto w-full text-center text-typography-700"
-                  >
-                    <Text size="lg items-center w-full text-center">Events</Text>
-                  </Heading>
-                </Box>
-                <Image
-                    source={require("@/assets/profile-screens/profile/image2.png")}
-                    height={"30%"}
-                    width={"100%"}
-                    alt="Banner Image"
-                  />
-                <VStack >
-
-                  <Text className="my-2">
-                    Then it suddenly happens... the first leap of sensations. A leap when a baby's metabolism, internal organs
-                    ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
-                    your belly and everything changes again.
-                  </Text>
-                  <VStack>
-
+                    <Text className="mb-10 mt-5" style={{backgroundColor:"white"}}>
+                      Then it suddenly happens... the first leap of sensations. A leap when a baby's metabolism, internal organs
+                      ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
+                      your belly and everything changes again.
+                      ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
+                      your belly and everything changes again.
+                    </Text>
+                    <VStack>
+                    </VStack>
                   </VStack>
-
-                  <HStack className="my-2">
-                        <Badge className="mr-3" size="md" variant="solid" action="muted">
-                          <BadgeText>Duration: 7 days</BadgeText>
-                          <BadgeIcon as={GlobeIcon} className="ml-2" />
-                        </Badge>
-                        <Badge className="mr-3" size="md" variant="solid" action="muted">
-                          <BadgeText>Started: Jan 15</BadgeText>
-                          <BadgeIcon as={GlobeIcon} className="ml-2" />
-                        </Badge>
-                  </HStack>
                 </VStack>
-
-            </VStack>
-          </GridItem>
-          <GridItem
-              style={[leapStatus.isFithLeapActive ? styles.active : styles.hidden]}
-              _extra={{
-                className: "col-span-12 sm:col-span-6 lg:col-span-4",
-              }}
-            >
-            <VStack
-              className="rounded-lg px-4 py-6"
-              space="sm">
-
-                <Box className="self-start w-full">
-                  <Heading
-                    size="lg"
-                    className="font-roboto w-full text-center text-typography-700"
-                  >
-                    <Text size="lg items-center w-full text-center">Relationships</Text>
-                  </Heading>
-                </Box>
-                <Image
-                    source={require("@/assets/profile-screens/profile/image2.png")}
-                    height={"30%"}
-                    width={"100%"}
-                    alt="Banner Image"
-                  />
-                <VStack >
-
-                  <Text className="my-2">
-                    Then it suddenly happens... the first leap of sensations. A leap when a baby's metabolism, internal organs
-                    ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
-                    your belly and everything changes again.
-                  </Text>
-                  <VStack>
-
+                <VStack style={[leapStatus.isFourthLeapActive ? styles.active : styles.hidden]}>
+                  <Box style={styles.primary_muted} className=" p-4 rounded-md w-full primary_muted">
+                    <HStack>
+                      <HStack style={{width: "15%"}}  className="items-center">
+                        <Image
+                          source={require("@/assets/profile-screens/profile/puzzle.png")}
+                          height={40}
+                          width={40}
+                          alt="Banner Image"/> 
+                      </HStack>
+                      <VStack style={{width: "85%"}}>
+                        <Text style={{fontSize: "15", fontWeight: 600}} className="col-span-1 ml-5">
+                          Leap 4: Events
+                        </Text>
+                        <Text style={{fontSize: "11", lineHeight:"smaller"}} className="col-span-1 ml-5">
+                          Duration: 0 to 7 Days
+                        </Text>
+                      </VStack>
+                    </HStack>
+                  </Box>
+                  <VStack className="pt-4">
+                    <HStack className="items-center justify-between">
+                      <Text className="font-medium">
+                        Day 0 of 20
+                      </Text>
+                      <Text className="font-medium">
+                        0% complete
+                      </Text>
+                    </HStack>
+                    <Center className="w-[280px] h-[30px]">
+                      <Progress value={0} size="sm" orientation="horizontal">
+                        <ProgressFilledTrack />
+                      </Progress>
+                    </Center>
                   </VStack>
+                  <VStack >
+                    <HStack style={styles.tips_and_skills_container} className="w-full justify-content-center" >
+                      <Button variant="solid" action="primary" style={{width: "50%"}}>
+                        <Icon as={BellIcon} size="lg" className="mx-1" />
+                        <ButtonText>Signals</ButtonText>
+                      </Button>
+                      <Button className="items-center ml-1"  variant="solid" action="primary" style={{width: "50%"}}>
+                      <Icon as={UnlockIcon} size="lg" className="mx-1" />
+                        <ButtonText>Skills</ButtonText>
+                      </Button>
+                    </HStack>
 
-                  <HStack className="my-2">
-                        <Badge className="mr-3" size="md" variant="solid" action="muted">
-                          <BadgeText>Duration: 7 days</BadgeText>
-                          <BadgeIcon as={GlobeIcon} className="ml-2" />
-                        </Badge>
-                        <Badge className="mr-3" size="md" variant="solid" action="muted">
-                          <BadgeText>Started: Jan 15</BadgeText>
-                          <BadgeIcon as={GlobeIcon} className="ml-2" />
-                        </Badge>
-                  </HStack>
+                    <Text className="mb-10 mt-5" style={{backgroundColor:"white"}}>
+                      Then it suddenly happens... the first leap of sensations. A leap when a baby's metabolism, internal organs
+                      ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
+                      your belly and everything changes again.
+                      ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
+                      your belly and everything changes again.
+                    </Text>
+                    <VStack>
+                    </VStack>
+                  </VStack>
                 </VStack>
+                <VStack style={[leapStatus.isFithLeapActive ? styles.active : styles.hidden]}>
+                  <Box style={styles.primary_muted} className=" p-4 rounded-md w-full primary_muted">
+                    <HStack>
+                      <HStack style={{width: "15%"}}  className="items-center">
+                        <Image
+                          source={require("@/assets/profile-screens/profile/interaction1.png")}
+                          height={40}
+                          width={40}
+                          alt="Banner Image"/> 
+                      </HStack>
+                      <VStack style={{width: "85%"}}>
+                        <Text style={{fontSize: "15", fontWeight: 600}} className="col-span-1 ml-5">
+                          Leap 5: Relationships
+                        </Text>
+                        <Text style={{fontSize: "11", lineHeight:"smaller"}} className="col-span-1 ml-5">
+                          Duration: 0 to 7 Days
+                        </Text>
+                      </VStack>
+                    </HStack>
+                  </Box>
+                  <VStack className="pt-4">
+                    <HStack className="items-center justify-between">
+                      <Text className="font-medium">
+                        Day 0 of 20
+                      </Text>
+                      <Text className="font-medium">
+                        0% complete
+                      </Text>
+                    </HStack>
+                    <Center className="w-[280px] h-[30px]">
+                      <Progress value={0} size="sm" orientation="horizontal">
+                        <ProgressFilledTrack />
+                      </Progress>
+                    </Center>
+                  </VStack>
+                  <VStack >
+                    <HStack style={styles.tips_and_skills_container} className="w-full justify-content-center" >
+                      <Button variant="solid" action="primary" style={{width: "50%"}}>
+                        <Icon as={BellIcon} size="lg" className="mx-1" />
+                        <ButtonText>Signals</ButtonText>
+                      </Button>
+                      <Button className="items-center ml-1"  variant="solid" action="primary" style={{width: "50%"}}>
+                      <Icon as={UnlockIcon} size="lg" className="mx-1" />
+                        <ButtonText>Skills</ButtonText>
+                      </Button>
+                    </HStack>
 
-            </VStack>
-          </GridItem>
-        </Grid>
+                    <Text className="mb-10 mt-5" style={{backgroundColor:"white"}}>
+                      Then it suddenly happens... the first leap of sensations. A leap when a baby's metabolism, internal organs
+                      ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
+                      your belly and everything changes again.
+                      ,and senses mature rapidly. It's a mejor event for "Nombre"! "Pronoun" has just got used to the world outside
+                      your belly and everything changes again.
+                    </Text>
+                    <VStack>
+                    </VStack>
+                  </VStack>
+                </VStack>
+              </VStack>
+            </GridItem>
+          </Grid>
         </VStack>
       </ScrollView>
     </VStack>
-  );
-};
-const MobileScreen = () => {
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm<userSchemaDetails>({
-    resolver: zodResolver(userSchema),
-  });
-
-  const handleKeyPress = () => {
-    Keyboard.dismiss();
-  };
-  const [isEmailFocused, setIsEmailFocused] = useState(false);
-  const [isNameFocused, setIsNameFocused] = useState(false);
-  const onSubmit = (_data: userSchemaDetails) => {
-    reset();
-  };
-
-  return (
-    <VStack className="md:hidden mb-5">
-      <Box className="w-full h-[188px]">
-        <Image
-          source={require("@/assets/profile-screens/profile/image2.png")}
-          height={"100%"}
-          width={"100%"}
-          alt="Banner Image"
-        />
-      </Box>
-      <Pressable className="absolute bg-background-950 rounded-full items-center justify-center h-8 w-8 right-6 top-[172px]">
-        <Icon as={CameraSparklesIcon} />
-      </Pressable>
-      <Center className="w-full absolute top-10">
-        <Avatar size="2xl">
-          <AvatarImage
-            source={require("@/assets/profile-screens/profile/image.png")}
-          />
-          <AvatarBadge className="justify-center items-center bg-background-950">
-            <Icon as={EditPhotoIcon} />
-          </AvatarBadge>
-        </Avatar>
-      </Center>
-      <VStack space="lg" className="mx-4 mt-4">
-        <Heading className="font-roboto" size="sm">
-          General Information
-        </Heading>
-        <VStack space="md">
-          <FormControl isInvalid={!!errors.firstName || isNameFocused}>
-            <FormControlLabel className="mb-2">
-              <FormControlLabelText>First Name</FormControlLabelText>
-            </FormControlLabel>
-            <Controller
-              name="firstName"
-              control={control}
-              rules={{
-                validate: async (value) => {
-                  try {
-                    await userSchema.parseAsync({
-                      firstName: value,
-                    });
-                    return true;
-                  } catch (error: any) {
-                    return error.message;
-                  }
-                },
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Input>
-                  <InputField
-                    placeholder="First Name"
-                    type="text"
-                    value={value}
-                    onChangeText={onChange}
-                    onBlur={onBlur}
-                    onSubmitEditing={handleKeyPress}
-                    returnKeyType="done"
-                  />
-                </Input>
-              )}
-            />
-            <FormControlError>
-              <FormControlErrorIcon as={AlertCircleIcon} size="md" />
-              <FormControlErrorText>
-                {errors?.firstName?.message}
-              </FormControlErrorText>
-            </FormControlError>
-          </FormControl>
-          <FormControl isInvalid={!!errors.lastName || isNameFocused}>
-            <FormControlLabel className="mb-2">
-              <FormControlLabelText>Last Name</FormControlLabelText>
-            </FormControlLabel>
-            <Controller
-              name="lastName"
-              control={control}
-              rules={{
-                validate: async (value) => {
-                  try {
-                    await userSchema.parseAsync({
-                      lastName: value,
-                    });
-                    return true;
-                  } catch (error: any) {
-                    return error.message;
-                  }
-                },
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Input>
-                  <InputField
-                    placeholder="Last Name"
-                    type="text"
-                    value={value}
-                    onChangeText={onChange}
-                    onBlur={onBlur}
-                    onSubmitEditing={handleKeyPress}
-                    returnKeyType="done"
-                  />
-                </Input>
-              )}
-            />
-            <FormControlError>
-              <FormControlErrorIcon as={AlertCircleIcon} size="md" />
-              <FormControlErrorText>
-                {errors?.lastName?.message}
-              </FormControlErrorText>
-            </FormControlError>
-          </FormControl>
-          <FormControl isInvalid={!!errors.gender}>
-            <FormControlLabel className="mb-2">
-              <FormControlLabelText>Gender</FormControlLabelText>
-            </FormControlLabel>
-            <Controller
-              name="gender"
-              control={control}
-              rules={{
-                validate: async (value) => {
-                  try {
-                    await userSchema.parseAsync({ city: value });
-                    return true;
-                  } catch (error: any) {
-                    return error.message;
-                  }
-                },
-              }}
-              render={({ field: { onChange, value } }) => (
-                <Select onValueChange={onChange} selectedValue={value}>
-                  <SelectTrigger variant="outline" size="md">
-                    <SelectInput placeholder="Select" />
-                    <SelectIcon className="mr-3" as={ChevronDownIcon} />
-                  </SelectTrigger>
-                  <SelectPortal>
-                    <SelectBackdrop />
-                    <SelectContent>
-                      <SelectDragIndicatorWrapper>
-                        <SelectDragIndicator />
-                      </SelectDragIndicatorWrapper>
-                      <SelectItem label="Male" value="male" />
-                      <SelectItem label="Female" value="female" />
-                      <SelectItem label="Others" value="others" />
-                    </SelectContent>
-                  </SelectPortal>
-                </Select>
-              )}
-            />
-            <FormControlError>
-              <FormControlErrorIcon as={AlertCircle} size="md" />
-              <FormControlErrorText>
-                {errors?.gender?.message}
-              </FormControlErrorText>
-            </FormControlError>
-          </FormControl>
-          <FormControl isInvalid={!!errors.phoneNumber}>
-            <FormControlLabel className="mb-2">
-              <FormControlLabelText>Phone number</FormControlLabelText>
-            </FormControlLabel>
-            <Controller
-              name="phoneNumber"
-              control={control}
-              rules={{
-                validate: async (value) => {
-                  try {
-                    await userSchema.parseAsync({ phoneNumber: value });
-                    return true;
-                  } catch (error: any) {
-                    return error.message;
-                  }
-                },
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <HStack className="gap-1">
-                  <Select className="w-[28%]">
-                    <SelectTrigger variant="outline" size="md">
-                      <SelectInput placeholder="+91" />
-                      <SelectIcon className="mr-1" as={ChevronDownIcon} />
-                    </SelectTrigger>
-                    <SelectPortal>
-                      <SelectBackdrop />
-                      <SelectContent>
-                        <SelectDragIndicatorWrapper>
-                          <SelectDragIndicator />
-                        </SelectDragIndicatorWrapper>
-                        <SelectItem label="93" value="93" />
-                        <SelectItem label="155" value="155" />
-                        <SelectItem label="1-684" value="-1684" />
-                      </SelectContent>
-                    </SelectPortal>
-                  </Select>
-                  <Input className="flex-1">
-                    <InputField
-                      placeholder="89867292632"
-                      type="text"
-                      value={value}
-                      onChangeText={onChange}
-                      keyboardType="number-pad"
-                      onBlur={onBlur}
-                      onSubmitEditing={handleKeyPress}
-                      returnKeyType="done"
-                    />
-                  </Input>
-                </HStack>
-              )}
-            />
-            <FormControlError>
-              <FormControlErrorIcon as={AlertCircle} size="md" />
-              <FormControlErrorText>
-                {errors?.phoneNumber?.message}
-              </FormControlErrorText>
-            </FormControlError>
-          </FormControl>
-        </VStack>
-        <Heading className="font-roboto" size="sm">
-          Address
-        </Heading>
-        <VStack space="md">
-          <FormControl
-            isInvalid={(!!errors.city || isEmailFocused) && !!errors.city}
-          >
-            <FormControlLabel className="mb-2">
-              <FormControlLabelText>City</FormControlLabelText>
-            </FormControlLabel>
-            <Controller
-              name="city"
-              control={control}
-              rules={{
-                validate: async (value) => {
-                  try {
-                    await userSchema.parseAsync({ city: value });
-                    return true;
-                  } catch (error: any) {
-                    return error.message;
-                  }
-                },
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Select onValueChange={onChange} selectedValue={value}>
-                  <SelectTrigger variant="outline" size="md">
-                    <SelectInput placeholder="Select" />
-                    <SelectIcon className="mr-3" as={ChevronDownIcon} />
-                  </SelectTrigger>
-                  <SelectPortal>
-                    <SelectBackdrop />
-                    <SelectContent>
-                      <SelectDragIndicatorWrapper>
-                        <SelectDragIndicator />
-                      </SelectDragIndicatorWrapper>
-                      <SelectItem label="Bengaluru" value="Bengaluru" />
-                      <SelectItem label="Udupi" value="Udupi" />
-                      <SelectItem label="Others" value="Others" />
-                    </SelectContent>
-                  </SelectPortal>
-                </Select>
-              )}
-            />
-            <FormControlError>
-              <FormControlErrorIcon as={AlertCircle} size="md" />
-              <FormControlErrorText>
-                {errors?.city?.message}
-              </FormControlErrorText>
-            </FormControlError>
-          </FormControl>
-
-          <FormControl
-            isInvalid={(!!errors.state || isEmailFocused) && !!errors.state}
-          >
-            <FormControlLabel className="mb-2">
-              <FormControlLabelText>State</FormControlLabelText>
-            </FormControlLabel>
-            <Controller
-              name="state"
-              control={control}
-              rules={{
-                validate: async (value) => {
-                  try {
-                    await userSchema.parseAsync({ state: value });
-                    return true;
-                  } catch (error: any) {
-                    return error.message;
-                  }
-                },
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Select onValueChange={onChange} selectedValue={value}>
-                  <SelectTrigger variant="outline" size="md">
-                    <SelectInput placeholder="Select" />
-                    <SelectIcon className="mr-3" as={ChevronDownIcon} />
-                  </SelectTrigger>
-                  <SelectPortal>
-                    <SelectBackdrop />
-                    <SelectContent>
-                      <SelectDragIndicatorWrapper>
-                        <SelectDragIndicator />
-                      </SelectDragIndicatorWrapper>
-                      <SelectItem label="Karnataka" value="Karnataka" />
-                      <SelectItem label="Haryana" value="Haryana" />
-                      <SelectItem label="Others" value="Others" />
-                    </SelectContent>
-                  </SelectPortal>
-                </Select>
-              )}
-            />
-            <FormControlError>
-              <FormControlErrorIcon as={AlertCircle} size="md" />
-              <FormControlErrorText>
-                {errors?.state?.message}
-              </FormControlErrorText>
-            </FormControlError>
-          </FormControl>
-
-          <FormControl
-            isInvalid={(!!errors.country || isEmailFocused) && !!errors.country}
-          >
-            <FormControlLabel className="mb-2">
-              <FormControlLabelText>Country</FormControlLabelText>
-            </FormControlLabel>
-            <Controller
-              name="country"
-              control={control}
-              rules={{
-                validate: async (value) => {
-                  try {
-                    await userSchema.parseAsync({ country: value });
-                    return true;
-                  } catch (error: any) {
-                    return error.message;
-                  }
-                },
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Select onValueChange={onChange} selectedValue={value}>
-                  <SelectTrigger variant="outline" size="md">
-                    <SelectInput placeholder="Select" />
-                    <SelectIcon className="mr-3" as={ChevronDownIcon} />
-                  </SelectTrigger>
-                  <SelectPortal>
-                    <SelectBackdrop />
-                    <SelectContent>
-                      <SelectDragIndicatorWrapper>
-                        <SelectDragIndicator />
-                      </SelectDragIndicatorWrapper>
-                      <SelectItem label="India" value="India" />
-                      <SelectItem label="Sri Lanka" value="Sri Lanka" />
-                      <SelectItem label="Others" value="Others" />
-                    </SelectContent>
-                  </SelectPortal>
-                </Select>
-              )}
-            />
-            <FormControlError>
-              <FormControlErrorIcon as={AlertCircle} size="md" />
-              <FormControlErrorText>
-                {errors?.country?.message}
-              </FormControlErrorText>
-            </FormControlError>
-          </FormControl>
-          <FormControl isInvalid={!!errors.zipcode || isEmailFocused}>
-            <FormControlLabel className="mb-2">
-              <FormControlLabelText>Zipcode</FormControlLabelText>
-            </FormControlLabel>
-            <Controller
-              name="zipcode"
-              control={control}
-              rules={{
-                validate: async (value) => {
-                  try {
-                    await userSchema.parseAsync({
-                      zipCode: value,
-                    });
-                    return true;
-                  } catch (error: any) {
-                    return error.message;
-                  }
-                },
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Input>
-                  <InputField
-                    placeholder="Enter 6 - digit zip code"
-                    type="text"
-                    value={value}
-                    onChangeText={onChange}
-                    onBlur={onBlur}
-                    onSubmitEditing={handleKeyPress}
-                    returnKeyType="done"
-                  />
-                </Input>
-              )}
-            />
-            <FormControlError>
-              <FormControlErrorIcon as={AlertCircle} size="md" />
-              <FormControlErrorText>
-                {errors?.zipcode?.message}
-              </FormControlErrorText>
-            </FormControlError>
-          </FormControl>
-        </VStack>
-        <Button
-          onPress={() => {
-            handleSubmit(onSubmit)();
-          }}
-          className="flex-1 p-2"
-        >
-          <ButtonText>Save Changes</ButtonText>
-        </Button>
-      </VStack>
-    </VStack>
-  );
-};
-const ModalComponent = ({
-  showModal,
-  setShowModal,
-}: {
-  showModal: boolean;
-  setShowModal: any;
-}) => {
-  const ref = useRef(null);
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm<userSchemaDetails>({
-    resolver: zodResolver(userSchema),
-  });
-
-  const handleKeyPress = () => {
-    Keyboard.dismiss();
-  };
-  const [isEmailFocused, setIsEmailFocused] = useState(false);
-  const [isNameFocused, setIsNameFocused] = useState(false);
-  const onSubmit = (_data: userSchemaDetails) => {
-    setShowModal(false);
-    reset();
-  };
-
-  return (
-    <Modal
-      isOpen={showModal}
-      onClose={() => {
-        setShowModal(false);
-      }}
-      finalFocusRef={ref}
-      size="lg"
-    >
-      <ModalBackdrop />
-      <ModalContent>
-        <Box className={"w-full h-[215px] "}>
-          <Image
-            source={require("@/assets/profile-screens/profile/image2.png")}
-            height={"100%"}
-            width={"100%"}
-            alt="Banner Image"
-          />
-        </Box>
-        <Pressable className="absolute bg-background-500 rounded-full items-center justify-center h-8 w-8 right-6 top-44">
-          <Icon as={CameraSparklesIcon} />
-        </Pressable>
-        <ModalHeader className="absolute w-full">
-          <Heading size="2xl" className="text-typography-800 pt-4 pl-4">
-            Edit Profile
-          </Heading>
-          <ModalCloseButton>
-            <Icon
-              as={CloseIcon}
-              size="md"
-              className="stroke-background-400 group-[:hover]/modal-close-button:stroke-background-700 group-[:active]/modal-close-button:stroke-background-900 group-[:focus-visible]/modal-close-button:stroke-background-900"
-            />
-          </ModalCloseButton>
-        </ModalHeader>
-        <Center className="w-full absolute top-16">
-          <Avatar size="2xl">
-            <AvatarImage
-              source={require("@/assets/profile-screens/profile/image.png")}
-            />
-            <AvatarBadge className="justify-center items-center bg-background-500">
-              <Icon as={EditPhotoIcon} />
-            </AvatarBadge>
-          </Avatar>
-        </Center>
-        <ModalBody className="px-10 py-6">
-          <VStack space="2xl">
-            <HStack className="items-center justify-between">
-              <FormControl
-                isInvalid={!!errors.firstName || isNameFocused}
-                className="w-[47%]"
-              >
-                <FormControlLabel className="mb-2">
-                  <FormControlLabelText>First Name</FormControlLabelText>
-                </FormControlLabel>
-                <Controller
-                  name="firstName"
-                  control={control}
-                  rules={{
-                    validate: async (value) => {
-                      try {
-                        await userSchema.parseAsync({
-                          firstName: value,
-                        });
-                        return true;
-                      } catch (error: any) {
-                        return error.message;
-                      }
-                    },
-                  }}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <Input>
-                      <InputField
-                        placeholder="First Name"
-                        type="text"
-                        value={value}
-                        onChangeText={onChange}
-                        onBlur={onBlur}
-                        onSubmitEditing={handleKeyPress}
-                        returnKeyType="done"
-                      />
-                    </Input>
-                  )}
-                />
-                <FormControlError>
-                  <FormControlErrorIcon as={AlertCircleIcon} size="md" />
-                  <FormControlErrorText>
-                    {errors?.firstName?.message}
-                  </FormControlErrorText>
-                </FormControlError>
-              </FormControl>
-              <FormControl
-                isInvalid={!!errors.lastName || isNameFocused}
-                className="w-[47%]"
-              >
-                <FormControlLabel className="mb-2">
-                  <FormControlLabelText>Last Name</FormControlLabelText>
-                </FormControlLabel>
-                <Controller
-                  name="lastName"
-                  control={control}
-                  rules={{
-                    validate: async (value) => {
-                      try {
-                        await userSchema.parseAsync({
-                          lastName: value,
-                        });
-                        return true;
-                      } catch (error: any) {
-                        return error.message;
-                      }
-                    },
-                  }}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <Input>
-                      <InputField
-                        placeholder="Last Name"
-                        type="text"
-                        value={value}
-                        onChangeText={onChange}
-                        onBlur={onBlur}
-                        onSubmitEditing={handleKeyPress}
-                        returnKeyType="done"
-                      />
-                    </Input>
-                  )}
-                />
-                <FormControlError>
-                  <FormControlErrorIcon as={AlertCircleIcon} size="md" />
-                  <FormControlErrorText>
-                    {errors?.lastName?.message}
-                  </FormControlErrorText>
-                </FormControlError>
-              </FormControl>
-            </HStack>
-            <HStack className="items-center justify-between">
-              <FormControl className="w-[47%]" isInvalid={!!errors.gender}>
-                <FormControlLabel className="mb-2">
-                  <FormControlLabelText>Gender</FormControlLabelText>
-                </FormControlLabel>
-                <Controller
-                  name="gender"
-                  control={control}
-                  rules={{
-                    validate: async (value) => {
-                      try {
-                        await userSchema.parseAsync({ city: value });
-                        return true;
-                      } catch (error: any) {
-                        return error.message;
-                      }
-                    },
-                  }}
-                  render={({ field: { onChange, value } }) => (
-                    <Select onValueChange={onChange} selectedValue={value}>
-                      <SelectTrigger variant="outline" size="md">
-                        <SelectInput placeholder="Select" />
-                        <SelectIcon className="mr-3" as={ChevronDownIcon} />
-                      </SelectTrigger>
-                      <SelectPortal>
-                        <SelectBackdrop />
-                        <SelectContent>
-                          <SelectDragIndicatorWrapper>
-                            <SelectDragIndicator />
-                          </SelectDragIndicatorWrapper>
-                          <SelectItem label="Male" value="male" />
-                          <SelectItem label="Female" value="female" />
-                          <SelectItem label="Others" value="others" />
-                        </SelectContent>
-                      </SelectPortal>
-                    </Select>
-                  )}
-                />
-                <FormControlError>
-                  <FormControlErrorIcon as={AlertCircle} size="md" />
-                  <FormControlErrorText>
-                    {errors?.gender?.message}
-                  </FormControlErrorText>
-                </FormControlError>
-              </FormControl>
-
-              <FormControl className="w-[47%]" isInvalid={!!errors.phoneNumber}>
-                <FormControlLabel className="mb-2">
-                  <FormControlLabelText>Phone number</FormControlLabelText>
-                </FormControlLabel>
-                <Controller
-                  name="phoneNumber"
-                  control={control}
-                  rules={{
-                    validate: async (value) => {
-                      try {
-                        await userSchema.parseAsync({ phoneNumber: value });
-                        return true;
-                      } catch (error: any) {
-                        return error.message;
-                      }
-                    },
-                  }}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <HStack className="gap-1">
-                      <Select className="w-[28%]">
-                        <SelectTrigger variant="outline" size="md">
-                          <SelectInput placeholder="+91" />
-                          <SelectIcon className="mr-1" as={ChevronDownIcon} />
-                        </SelectTrigger>
-                        <SelectPortal>
-                          <SelectBackdrop />
-                          <SelectContent>
-                            <SelectDragIndicatorWrapper>
-                              <SelectDragIndicator />
-                            </SelectDragIndicatorWrapper>
-                            <SelectItem label="93" value="93" />
-                            <SelectItem label="155" value="155" />
-                            <SelectItem label="1-684" value="-1684" />
-                          </SelectContent>
-                        </SelectPortal>
-                      </Select>
-                      <Input className="flex-1">
-                        <InputField
-                          placeholder="89867292632"
-                          type="text"
-                          value={value}
-                          onChangeText={onChange}
-                          keyboardType="number-pad"
-                          onBlur={onBlur}
-                          onSubmitEditing={handleKeyPress}
-                          returnKeyType="done"
-                        />
-                      </Input>
-                    </HStack>
-                  )}
-                />
-                <FormControlError>
-                  <FormControlErrorIcon as={AlertCircle} size="md" />
-                  <FormControlErrorText>
-                    {errors?.phoneNumber?.message}
-                  </FormControlErrorText>
-                </FormControlError>
-              </FormControl>
-            </HStack>
-            <HStack className="items-center justify-between">
-              <FormControl
-                className="w-[47%]"
-                isInvalid={(!!errors.city || isEmailFocused) && !!errors.city}
-              >
-                <FormControlLabel className="mb-2">
-                  <FormControlLabelText>City</FormControlLabelText>
-                </FormControlLabel>
-                <Controller
-                  name="city"
-                  control={control}
-                  rules={{
-                    validate: async (value) => {
-                      try {
-                        await userSchema.parseAsync({ city: value });
-                        return true;
-                      } catch (error: any) {
-                        return error.message;
-                      }
-                    },
-                  }}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <Select onValueChange={onChange} selectedValue={value}>
-                      <SelectTrigger variant="outline" size="md">
-                        <SelectInput placeholder="Select" />
-                        <SelectIcon className="mr-3" as={ChevronDownIcon} />
-                      </SelectTrigger>
-                      <SelectPortal>
-                        <SelectBackdrop />
-                        <SelectContent>
-                          <SelectDragIndicatorWrapper>
-                            <SelectDragIndicator />
-                          </SelectDragIndicatorWrapper>
-                          <SelectItem label="Bengaluru" value="Bengaluru" />
-                          <SelectItem label="Udupi" value="Udupi" />
-                          <SelectItem label="Others" value="Others" />
-                        </SelectContent>
-                      </SelectPortal>
-                    </Select>
-                  )}
-                />
-                <FormControlError>
-                  <FormControlErrorIcon as={AlertCircle} size="md" />
-                  <FormControlErrorText>
-                    {errors?.city?.message}
-                  </FormControlErrorText>
-                </FormControlError>
-              </FormControl>
-
-              <FormControl
-                className="w-[47%]"
-                isInvalid={(!!errors.state || isEmailFocused) && !!errors.state}
-              >
-                <FormControlLabel className="mb-2">
-                  <FormControlLabelText>State</FormControlLabelText>
-                </FormControlLabel>
-                <Controller
-                  name="state"
-                  control={control}
-                  rules={{
-                    validate: async (value) => {
-                      try {
-                        await userSchema.parseAsync({ state: value });
-                        return true;
-                      } catch (error: any) {
-                        return error.message;
-                      }
-                    },
-                  }}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <Select onValueChange={onChange} selectedValue={value}>
-                      <SelectTrigger variant="outline" size="md">
-                        <SelectInput placeholder="Select" />
-                        <SelectIcon className="mr-3" as={ChevronDownIcon} />
-                      </SelectTrigger>
-                      <SelectPortal>
-                        <SelectBackdrop />
-                        <SelectContent>
-                          <SelectDragIndicatorWrapper>
-                            <SelectDragIndicator />
-                          </SelectDragIndicatorWrapper>
-                          <SelectItem label="Karnataka" value="Karnataka" />
-                          <SelectItem label="Haryana" value="Haryana" />
-                          <SelectItem label="Others" value="Others" />
-                        </SelectContent>
-                      </SelectPortal>
-                    </Select>
-                  )}
-                />
-                <FormControlError>
-                  <FormControlErrorIcon as={AlertCircle} size="md" />
-                  <FormControlErrorText>
-                    {errors?.state?.message}
-                  </FormControlErrorText>
-                </FormControlError>
-              </FormControl>
-            </HStack>
-            <HStack className="items-center justify-between">
-              <FormControl
-                className="w-[47%]"
-                isInvalid={
-                  (!!errors.country || isEmailFocused) && !!errors.country
-                }
-              >
-                <FormControlLabel className="mb-2">
-                  <FormControlLabelText>Country</FormControlLabelText>
-                </FormControlLabel>
-                <Controller
-                  name="country"
-                  control={control}
-                  rules={{
-                    validate: async (value) => {
-                      try {
-                        await userSchema.parseAsync({ country: value });
-                        return true;
-                      } catch (error: any) {
-                        return error.message;
-                      }
-                    },
-                  }}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <Select onValueChange={onChange} selectedValue={value}>
-                      <SelectTrigger variant="outline" size="md">
-                        <SelectInput placeholder="Select" />
-                        <SelectIcon className="mr-3" as={ChevronDownIcon} />
-                      </SelectTrigger>
-                      <SelectPortal>
-                        <SelectBackdrop />
-                        <SelectContent>
-                          <SelectDragIndicatorWrapper>
-                            <SelectDragIndicator />
-                          </SelectDragIndicatorWrapper>
-                          <SelectItem label="India" value="India" />
-                          <SelectItem label="Sri Lanka" value="Sri Lanka" />
-                          <SelectItem label="Others" value="Others" />
-                        </SelectContent>
-                      </SelectPortal>
-                    </Select>
-                  )}
-                />
-                <FormControlError>
-                  <FormControlErrorIcon as={AlertCircle} size="md" />
-                  <FormControlErrorText>
-                    {errors?.country?.message}
-                  </FormControlErrorText>
-                </FormControlError>
-              </FormControl>
-              <FormControl
-                className="w-[47%]"
-                isInvalid={!!errors.zipcode || isEmailFocused}
-              >
-                <FormControlLabel className="mb-2">
-                  <FormControlLabelText>Zipcode</FormControlLabelText>
-                </FormControlLabel>
-                <Controller
-                  name="zipcode"
-                  control={control}
-                  rules={{
-                    validate: async (value) => {
-                      try {
-                        await userSchema.parseAsync({
-                          zipCode: value,
-                        });
-                        return true;
-                      } catch (error: any) {
-                        return error.message;
-                      }
-                    },
-                  }}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <Input>
-                      <InputField
-                        placeholder="Enter 6 - digit zip code"
-                        type="text"
-                        value={value}
-                        onChangeText={onChange}
-                        onBlur={onBlur}
-                        onSubmitEditing={handleKeyPress}
-                        returnKeyType="done"
-                      />
-                    </Input>
-                  )}
-                />
-                <FormControlError>
-                  <FormControlErrorIcon as={AlertCircle} size="md" />
-                  <FormControlErrorText>
-                    {errors?.zipcode?.message}
-                  </FormControlErrorText>
-                </FormControlError>
-              </FormControl>
-            </HStack>
-            <Button
-              onPress={() => {
-                handleSubmit(onSubmit)();
-              }}
-              className="flex-1 p-2"
-            >
-              <ButtonText>Save Changes</ButtonText>
-            </Button>
-          </VStack>
-        </ModalBody>
-      </ModalContent>
-    </Modal>
   );
 };
 
@@ -1737,9 +746,7 @@ const styles = StyleSheet.create({
   },
 
   active: {
-    display: 'block',
-    width: 400,
-    height: 500,
+    display: 'flex'
   },
 
   main_color: {
@@ -1749,8 +756,6 @@ const styles = StyleSheet.create({
 
   hidden: {
     display: 'none',
-    width: 400,
-    height: 500,
   },
   tips_and_skills_container: {
     display: 'flex',
@@ -1763,10 +768,6 @@ const styles = StyleSheet.create({
   selector: {
   }
 });
-
-
-
-
 
 export const Leaps = () => {
   return (
