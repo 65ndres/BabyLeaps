@@ -4,6 +4,7 @@ import { Box } from "@/components/ui/box";
 import { HStack } from "@/components/ui/hstack";
 import { StyleSheet} from 'react-native';
 import { Heading } from "@/components/ui/heading";
+import { router } from "expo-router";
 import {
   Select,
   SelectTrigger,
@@ -162,12 +163,18 @@ const MainContent = () => {
                   </Heading>
                 </Box>
                                 
-                <Button action="primary" variant="solid">
+                <Button action="primary" variant="solid"
+                    onPress={() => {
+                      router.push("/onboarding/baby_info/baby_info");
+                    }}>
                    {/* <Icon as={BellIcon} size="lg" className="mx-1" /> */}
                   <ButtonText >Nice to Meet you</ButtonText>
                 </Button>
                 
-                <Button action="primary" variant="solid">
+                <Button action="primary" variant="solid"
+                  onPress={() => {
+                    router.push("/auth/signin");
+                  }}>
                   {/* <Icon as={BellIcon} size="lg" className="mx-1" /> */}
                   <ButtonText >Welcome back</ButtonText>
                 </Button>
