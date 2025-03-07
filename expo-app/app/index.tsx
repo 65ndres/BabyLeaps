@@ -50,14 +50,14 @@ const index = () => {
         >
           <ButtonText>News feed</ButtonText>
         </Button>
-
+*/}
         <Button
           onPress={() => {
-            router.push("profile/profile");
+            router.push("/onboarding/new_or_returning/new_or_returning");
           }}
         >
           <ButtonText>Profile</ButtonText>
-        </Button> */}
+        </Button> 
                 <Button
           onPress={() => {
             router.push("dashboard/dashboard-layout");

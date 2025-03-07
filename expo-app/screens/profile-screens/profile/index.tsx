@@ -4,8 +4,19 @@ import { Box } from "@/components/ui/box";
 import { HStack } from "@/components/ui/hstack";
 import { StyleSheet} from 'react-native';
 import DateTimePicker, { DateType, getDefaultStyles } from 'react-native-ui-datepicker';
-import {DatePicker} from "react-native-common-date-picker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import {
+  Select,
+  SelectTrigger,
+  SelectInput,
+  SelectIcon,
+  SelectPortal,
+  SelectBackdrop,
+  SelectContent,
+  SelectDragIndicator,
+  SelectDragIndicatorWrapper,
+  SelectItem,
+} from "@/components/ui/select"
 import {
   AlertCircleIcon,
   EditIcon,
@@ -319,6 +330,7 @@ const MainContent = () => {
   return (
     <Box className="flex-1 ">
       <ScrollView
+      style={styles.main_color}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingBottom: isWeb ? 0 : 100,
@@ -326,7 +338,7 @@ const MainContent = () => {
         }}
         className="flex-1 mb-20 md:mb-2"
       >
-        <VStack style={styles.main_color} className="p-4 pb-0 md:px-10 md:pt-6  w-full" space="2xl">
+        <VStack  className="p-4 pb-0 md:px-10 md:pt-6  w-full" space="2xl">
           <Grid _extra={{className: "gap-5"}}>
             <GridItem _extra={{className: "col-span-12 sm:col-span-6 lg:col-span-4"}}>
                 <VStack className="rounded-lg p-4 " style={{backgroundColor: "white"}} space="md">
@@ -359,11 +371,11 @@ const MainContent = () => {
                       <FormControlLabel>
                         <FormControlLabelText>First Name</FormControlLabelText>
                       </FormControlLabel>
-                      <Input className="mb-5" >
+                      <Input className="mb-3" >
                         <InputField
                           type="text"
                           placeholder="first Name"
-                          value={inputValue}
+                          value="Gabriela"
                           onChangeText={(text) => setInputValue(text)}
                         />
                       </Input>
@@ -384,11 +396,11 @@ const MainContent = () => {
                       <FormControlLabel>
                         <FormControlLabelText>Last Name</FormControlLabelText>
                       </FormControlLabel>
-                      <Input className="my-1" >
+                      <Input className="my-1 mb-3" >
                         <InputField
                           type="text"
                           placeholder="first Name"
-                          value={inputValue}
+                          value="Rojas"
                           onChangeText={(text) => setInputValue(text)}
                         />
                       </Input>
@@ -413,11 +425,11 @@ const MainContent = () => {
                       
 
                       <HStack>
-                        <Input style={{width: "76%"}} className="mr-3">
+                        <Input style={{width: "76%"}} className="mr-3 mb-3">
                           <InputField
                             type="text"
                             placeholder="first Name"
-                            value={inputValue}
+                            value="05/27/2024"
                             onChangeText={(text) => setInputValue(text)}
                           />
                         </Input>
@@ -448,16 +460,16 @@ const MainContent = () => {
                       isRequired={false}
                     >
                       <FormControlLabel>
-                        <FormControlLabelText>Birth Date</FormControlLabelText>
+                        <FormControlLabelText>Due Date</FormControlLabelText>
                       </FormControlLabel>
 
                       
 
                       <HStack>
-                        <Input style={{width: "76%"}}  isReadOnly={true} className="mr-3">
+                        <Input style={{width: "76%"}}  isReadOnly={true} className="mr-3 mb-3">
                           <InputField
                             type="text"
-                            value={inputValue}
+                            value="06/06/2024"
                             onChangeText={(text) => setInputValue(text)}
                           />
                         </Input>
@@ -480,6 +492,49 @@ const MainContent = () => {
                         </FormControlErrorText>
                       </FormControlError>
                     </FormControl>
+
+
+
+                    <FormControl
+                      isInvalid={isInvalid}
+                      size="md"
+                      isDisabled={false}
+                      isReadOnly={false}
+                      isRequired={false}
+                    >
+                      <FormControlLabel>
+                        <FormControlLabelText>Gender</FormControlLabelText>
+                      </FormControlLabel>
+
+                      
+
+                      <HStack>
+                      <Select className="w-full">
+                        <SelectTrigger variant="outline" size="md">
+                          <SelectInput placeholder="Female" />
+                          <SelectIcon className="mr-3" />
+                        </SelectTrigger>
+                        <SelectPortal>
+                          <SelectBackdrop />
+                          <SelectContent>
+                            <SelectDragIndicatorWrapper>
+                              <SelectDragIndicator />
+                            </SelectDragIndicatorWrapper>
+                            <SelectItem label="Male" value="male" />
+                            <SelectItem label="Female" value="female" />
+                          </SelectContent>
+                        </SelectPortal>
+                      </Select>
+                      </HStack>
+
+                      <FormControlError>
+                        <FormControlErrorIcon as={AlertCircleIcon} />
+                        <FormControlErrorText>
+                          Atleast 6 characters are required.
+                        </FormControlErrorText>
+                      </FormControlError>
+                    </FormControl>
+                    
 
 
 

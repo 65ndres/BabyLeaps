@@ -269,13 +269,14 @@ const MainContent = () => {
   return (
     <Box className="flex-1 " >
       <ScrollView
+        style={styles.main_color}
         className="flex-1 mb-20 md:mb-2 main_color"
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingBottom: isWeb ? 0 : 100,
           flexGrow: 1,
         }}>
-        <VStack style={styles.main_color} className="p-4 pb-0 md:px-10 md:pt-6  w-full" space="2xl">
+        <VStack className="p-4 pb-0 md:px-10 md:pt-6  w-full" space="2xl">
           <Grid _extra={{className: "gap-5"}}>
             <GridItem _extra={{className: "col-span-12 sm:col-span-6 lg:col-span-4"}}>
               <Pressable onPress={() => {router.push("profile/profile")}}>
