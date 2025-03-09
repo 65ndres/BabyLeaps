@@ -5,6 +5,7 @@ import { HStack } from "@/components/ui/hstack";
 import { StyleSheet } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { SafeAreaView } from "@/components/ui/safe-area-view";
+import { router } from "expo-router";
 import {
   Select,
   SelectTrigger,
@@ -288,7 +289,12 @@ const MainContent = () => {
                     </FormControlError>
                   </FormControl>
 
-                  <Button className="w-full mt-10" size="md" onPress={handleSubmit}>
+                  <Button className="w-full mt-10" size="md" 
+                    // onPress={handleSubmit}
+                    onPress={() => {
+                      router.push("/onboarding/choose_plan/choose_plan");
+                    }}
+                    >
                     <ButtonText>Submit</ButtonText>
                   </Button>
                 </VStack>
