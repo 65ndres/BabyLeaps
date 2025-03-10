@@ -142,6 +142,15 @@ const MainContent = () => {
           className="flex-1 mb-20 md:mb-2 h-full"
         >
        <VStack className="p-4 pb-0 md:px-10 md:pt-6  w-full h-full" >
+       <Box className="w-full items-center py-4">
+                  <Heading
+                    size="lg"
+                    className="font-roboto text-typography-700"
+                  >
+                    Hey, Hello!
+                  </Heading>
+                </Box>
+                            
           <Grid _extra={{className: "gap-5 py-5 my-5 align-bottom"}}>
             <GridItem
               _extra={{
@@ -153,16 +162,7 @@ const MainContent = () => {
                 style={{backgroundColor: "white"}}
                 className="rounded-lg px-4 py-6 "
                 space="sm"
-              >
-                <Box className="self-start">
-                  <Heading
-                    size="lg"
-                    className="font-roboto text-typography-700"
-                  >
-                    Hey, Hello!
-                  </Heading>
-                </Box>
-                                
+              >    
                 <Button action="primary" variant="solid"
                     onPress={() => {
                       router.push("/onboarding/baby_info/baby_info");
@@ -170,6 +170,11 @@ const MainContent = () => {
                    {/* <Icon as={BellIcon} size="lg" className="mx-1" /> */}
                   <ButtonText >Nice to Meet you</ButtonText>
                 </Button>
+                    
+                  <VStack className="w-full items-center">
+                  <Text >or</Text>
+                  </VStack>
+                    
                 
                 <Button action="primary" variant="solid"
                   onPress={() => {

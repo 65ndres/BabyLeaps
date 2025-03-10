@@ -56,7 +56,7 @@ const index = () => {
             router.push("/onboarding/new_or_returning/new_or_returning");
           }}
         >
-          <ButtonText>Profile</ButtonText>
+          <ButtonText>From 0</ButtonText>
         </Button> 
                 <Button
           onPress={() => {

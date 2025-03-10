@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { Toast, ToastTitle, useToast } from "@/components/ui/toast";
+import { Grid, GridItem } from "@/components/ui/grid";
 import { HStack } from "@/components/ui/hstack";
 import { VStack } from "@/components/ui/vstack";
 import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
+import { StyleSheet} from 'react-native';
+import { Box } from "@/components/ui/box";
+import { ScrollView } from "@/components/ui/scroll-view";
+import { SafeAreaView } from "@/components/ui/safe-area-view";
 import { LinkText } from "@/components/ui/link";
 import Link from "@unitools/link";
 import {
@@ -113,6 +118,40 @@ const LoginWithLeftBackground = () => {
   };
   const router = useRouter();
   return (
+
+    
+    <Box className="flex-1">
+    <ScrollView
+      style={styles.main_color}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingBottom: 0,
+          flexGrow: 1,
+        }}
+        className="flex-1 mb-20 md:mb-2 h-full"
+      >
+     <VStack className="p-4 pb-0 md:px-10 md:pt-6  w-full h-full" >
+     <Box className="w-full items-center py-4">
+                <Heading
+                  size="2xl"
+                  className="font-roboto text-typography-700"
+                >
+                  Login
+                </Heading>
+              </Box>
+                          
+        <Grid _extra={{className: "gap-5 py-5 my-5 align-bottom"}}>
+          <GridItem
+            _extra={{
+              className: "align-bottom col-span-12 sm:col-span-6 lg:col-span-4",
+            }}
+          >
+        
+            <VStack
+              style={{backgroundColor: "white"}}
+              className="rounded-lg px-4 py-6 "
+              space="sm"
+            >    
     <VStack className="max-w-[440px] w-full" space="md">
       <VStack className="md:items-center" space="md">
         <Pressable
@@ -127,10 +166,7 @@ const LoginWithLeftBackground = () => {
           />
         </Pressable>
         <VStack>
-          <Heading className="md:text-center" size="3xl">
-            Log in
-          </Heading>
-          <Text>Login to start using gluestack</Text>
+          <Text>Login to start using BabyLeaps</Text>
         </VStack>
       </VStack>
       <VStack className="w-full">
@@ -255,38 +291,73 @@ const LoginWithLeftBackground = () => {
           <Button className="w-full" onPress={handleSubmit(onSubmit)}>
             <ButtonText className="font-medium">Log in</ButtonText>
           </Button>
-          <Button
-            variant="outline"
-            action="secondary"
-            className="w-full gap-1"
-            onPress={() => {}}
-          >
-            <ButtonText className="font-medium">
-              Continue with Google
-            </ButtonText>
-            <ButtonIcon as={GoogleIcon} />
-          </Button>
+
         </VStack>
-        <HStack className="self-center" space="sm">
-          <Text size="md">Don't have an account?</Text>
-          <Link href="/auth/signup">
-            <LinkText
-              className="font-medium text-primary-700 group-hover/link:text-primary-600  group-hover/pressed:text-primary-700"
-              size="md"
-            >
-              Sign up
-            </LinkText>
-          </Link>
-        </HStack>
+            <HStack className="self-center" space="sm">
+              <Text size="md">Don't have an account?</Text>
+              <Link href="/auth/signup">
+                <LinkText
+                  className="font-medium text-primary-700 group-hover/link:text-primary-600  group-hover/pressed:text-primary-700"
+                  size="md"
+                >
+                  Sign up
+                </LinkText>
+              </Link>
+            </HStack>
+          </VStack>
+        </VStack>
+            </VStack>
+          </GridItem>
+        </Grid>
       </VStack>
-    </VStack>
+    </ScrollView>
+  </Box>
   );
 };
 
 export const SignIn = () => {
   return (
-    <AuthLayout>
+    <SafeAreaView className="h-full w-full">
       <LoginWithLeftBackground />
-    </AuthLayout>
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  stepContainer: {
+    gap: 8,
+    marginBottom: 8,
+  },
+  reactLogo: {
+    height: 178,
+    width: 290,
+    bottom: 0,
+    left: 0,
+    position: 'absolute',
+  },
+
+  active: {
+    display: 'block',
+    width: 400,
+    height: 500,
+  },
+  main_color: {
+    backgroundColor: "#f0f5f3",
+    height: "100%",
+  },
+
+  tips_and_skills_container: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginVertical: 10,
+  },
+
+  bubble: {
+    backgroundColor: "white",
+  }
+});

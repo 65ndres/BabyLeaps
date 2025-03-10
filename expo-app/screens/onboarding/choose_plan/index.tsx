@@ -186,7 +186,7 @@ const MainContent = () => {
                     </VStack>
                     <Button action="primary" variant="solid"
                         onPress={() => {
-                          router.push("/onboarding/baby_info/baby_info");
+                          router.push("/auth/create-password");
                         }}>
                         {/* <Icon as={BellIcon} size="lg" className="mx-1" /> */}
                       <ButtonText >Select Plan</ButtonText>
@@ -251,7 +251,7 @@ const MainContent = () => {
                     </VStack>
                     <Button action="primary" variant="solid"
                         onPress={() => {
-                          router.push("/onboarding/baby_info/baby_info");
+                          router.push("/auth/create-password");
                         }}>
                         {/* <Icon as={BellIcon} size="lg" className="mx-1" /> */}
                       <ButtonText >Select Plan</ButtonText>
