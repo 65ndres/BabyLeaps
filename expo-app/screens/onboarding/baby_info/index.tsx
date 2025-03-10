@@ -6,6 +6,7 @@ import { StyleSheet } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { SafeAreaView } from "@/components/ui/safe-area-view";
 import { router } from "expo-router";
+import { postData } from '@/services/api';
 import {
   Select,
   SelectTrigger,
@@ -21,7 +22,6 @@ import {
 import {
   AlertCircleIcon,
   Icon,
-  MenuIcon,
   CalendarDaysIcon,
 } from "@/components/ui/icon";
 import { Text } from "@/components/ui/text";
@@ -43,6 +43,8 @@ import {
 type MobileHeaderProps = {
   title: string;
 };
+
+type Gender = 1 | 2 | 3;
 
 const DashboardLayout = (props: any) => {
   return (
@@ -85,6 +87,7 @@ const data = {
 const MainContent = () => {
   const [firstName, setFirstName] = useState("Gabriela");
   const [dob, setDob] = useState<string | undefined>();
+  const [selectedGender, setSelectedGender] = useState("")
   const [dueDate, setDueDate] = useState<string | undefined>();
   const [isDueDateDatePickerVisible, setDueDateDatePickerVisibility] =
     useState(false);
@@ -127,13 +130,38 @@ const MainContent = () => {
   const [isInvalid, setIsInvalid] = useState(false);
   const [inputValue, setInputValue] = useState("12345");
 
-  const handleSubmit = () => {
-    if (inputValue.length < 6) {
-      setIsInvalid(true);
-    } else {
-      setIsInvalid(false);
+  const handleSubmit = async () => {
+    // navigation.navigate('C', dataToPass)
+    try {
+      const result = await postData('/babies', {name: firstName, dob: dob, due_date: dueDate, gender: selectedGender });
+      // setResponse(result);
+      // setFormData({ title: '', body: '', userId: 1 }); // Reset form
+    } catch (err) {
+      // setError(err.message || 'An error occurred');
+    } finally {
+      // debugger
+      // setLoading(false);
+      // render the different componenet
+      // or redirect to a differen screent
     }
+
+    router.replace("/onboarding/choose_plan/choose_plan?baby=5")
+
+    // router.push("/onboarding/choose_plan/choose_plan", {})
+    // router.push({
+    //   pathname: '/choose_plan',
+    //   params: {
+    //     itemId: 42,
+    //     otherParam: 'Hello from Home!',
+    //   },
+    // });
   };
+
+
+
+
+
+  
 
   return (
     <Box className="flex-1">
@@ -186,7 +214,6 @@ const MainContent = () => {
                           type="text"
                           placeholder="MM/DD/YYYY"
                           value={dob}
-                          isReadOnly={true}
                         />
                       </Input>
                       <Button
@@ -264,7 +291,10 @@ const MainContent = () => {
                       <FormControlLabelText>Gender</FormControlLabelText>
                     </FormControlLabel>
                     <HStack>
-                      <Select className="w-full">
+                    <Select
+                        selectedValue={selectedGender}
+                        onValueChange={(value: Gender) => setSelectedGender(value)}
+                      >
                         <SelectTrigger variant="outline" size="md">
                           <SelectInput placeholder="Female" />
                           <SelectIcon className="mr-3" />
@@ -290,10 +320,10 @@ const MainContent = () => {
                   </FormControl>
 
                   <Button className="w-full mt-10" size="md" 
-                    // onPress={handleSubmit}
-                    onPress={() => {
-                      router.push("/onboarding/choose_plan/choose_plan");
-                    }}
+                    onPress={handleSubmit}
+                    // onPress={() => {
+                    //   router.push("/onboarding/choose_plan/choose_plan");
+                    // }}
                     >
                     <ButtonText>Submit</ButtonText>
                   </Button>

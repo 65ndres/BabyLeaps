@@ -291,7 +291,11 @@ const LoginWithLeftBackground = () => {
         </VStack>
 
         <VStack className="mt-7 w-full">
-          <Button className="w-full" onPress={handleSubmit(onSubmit)}>
+          <Button className="w-full"
+            // onPress={handleSubmit(onSubmit)}
+              onPress={() => {
+                router.push("/dashboard/dashboard-layout")
+              }}>
             <ButtonText className="font-medium">Update Password</ButtonText>
           </Button>
         </VStack>
